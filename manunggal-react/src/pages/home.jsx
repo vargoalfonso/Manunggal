@@ -5,7 +5,7 @@ import "../styles/home.css";
 /* ===================== TRANSLATIONS ===================== */
 const translations = {
   id: {
-produk: "Produk",
+    produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
     hubungi: "Hubungi Kami",
@@ -92,6 +92,8 @@ function Home() {
   const [lang, setLang] = useState("id");
   const t = translations[lang];
   /* slider & ESG */
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const itemRefs = useRef([]);
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(false);
@@ -155,13 +157,64 @@ function Home() {
       {/* ================= NAVBAR ================= */}
       <div className={`navbar ${scrolled ? "scrolled" : ""}`}>
         <h1 onClick={() => navigate("/")}>Manunggal</h1>
-        <ul>
-          <li onClick={() => navigate("/Product")}>{t.produk}</li>
+
+        {/* DESKTOP MENU */}
+        <ul className="nav-links">
+          <li onClick={() => navigate("/produk")}>{t.produk}</li>
           <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/our_services")}>{t.layanan}</li>
+          <li onClick={() => navigate("/service")}>{t.layanan}</li>
           <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
         </ul>
+
+        {/* BURGER */}
+        <div
+          className={`burger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
+        <ul>
+          <li
+            onClick={() => {
+              navigate("/produk");
+              setMenuOpen(false);
+            }}
+          >
+            {t.produk}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/about");
+              setMenuOpen(false);
+            }}
+          >
+            {t.tentang}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/service");
+              setMenuOpen(false);
+            }}
+          >
+            {t.layanan}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/contact");
+              setMenuOpen(false);
+            }}
+          >
+            {t.hubungi}
+          </li>
+        </ul>
+      </div>
+
       {/* ================= HERO ================= */}
       <div className="hero-container">
         <img
@@ -221,14 +274,15 @@ function Home() {
       </div>
       {/* ================= ESG ================= */}
 
-      
-
       <div className="esg-container">
         <div className="esg-list">
           <div className="esg-title">
-        <p className="titleesg">Our ESG Commitment</p>
-        <p className="captionesg">Sustainability is not just a choice, it is a responsibility for the future.</p>
-      </div>
+            <p className="titleesg">Our ESG Commitment</p>
+            <p className="captionesg">
+              Sustainability is not just a choice, it is a responsibility for
+              the future.
+            </p>
+          </div>
           <div className="indicator" style={{ top: current * 110 + "px" }} />
           {esgItems.map((item, i) => (
             <div
@@ -236,7 +290,7 @@ function Home() {
               className={`esg-item ${current === i ? "active" : ""}`}
               onMouseEnter={() => changeESG(i)}
             >
-              <h3 >{item.title}</h3>
+              <h3>{item.title}</h3>
               <p>{item.desc}</p>
             </div>
           ))}
@@ -252,8 +306,6 @@ function Home() {
             <h2>{esgItems[current].title}</h2>
           </div>
         </div>
-
-        
       </div>
 
       <footer className="footer-dark">
@@ -263,15 +315,15 @@ function Home() {
             <p>Global Facility Management Company</p>
 
             <iframe
-            title="maps"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.09134404035!2d106.51413157487074!3d-6.250644161249784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4206d3228bb2cf%3A0x8acae4dab232625e!2sBojong%2C%20Cikupa%2C%20Tangerang%20Regency%2C%20Banten%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
-            width="100%"
-            height="180"
-            style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+              title="maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.09134404035!2d106.51413157487074!3d-6.250644161249784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4206d3228bb2cf%3A0x8acae4dab232625e!2sBojong%2C%20Cikupa%2C%20Tangerang%20Regency%2C%20Banten%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+              width="100%"
+              height="180"
+              style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
 
           <div className="footer-links">

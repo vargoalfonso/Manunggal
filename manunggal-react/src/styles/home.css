@@ -127,6 +127,73 @@ p {
   width: 100%;
 }
 
+/* ================= BURGER MENU ================= */
+
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  z-index: 1100;
+}
+
+.burger span {
+  width: 26px;
+  height: 3px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled .burger span {
+  background: #000;
+}
+
+/* animation */
+.burger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 1050;
+  padding: 100px 30px;
+  transition: right 0.4s ease;
+  box-shadow: -20px 0 40px rgba(0,0,0,0.15);
+}
+
+.mobile-menu.show {
+  right: 0;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.mobile-menu li {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #111;
+}
+
+
 /* ================= HERO ================= */
 .hero-container {
   height: 100vh;
@@ -193,12 +260,13 @@ p {
 
 .slider-buttons button {
   background: transparent;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   color: #fff;
   font-size: 22px;
   width: 44px;
-  height: 44px;
+  height: 50px;
   margin-right: 10px;
+  
   cursor: pointer;
   transition: 0.3s;
 }
@@ -265,6 +333,7 @@ p {
 .card-img {
   height: 200px;
   object-fit: cover;
+  width: 100%;
 }
 
 .card-body {
@@ -429,11 +498,144 @@ p {
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .contact-hero,
-  .contact-section {
+/* ================= RESPONSIVE ================= */
+
+/* ===== TABLET & MOBILE ===== */
+@media (max-width: 768px) {
+
+  /* LANGUAGE BAR */
+  .language-selector ul {
+    justify-content: center;
+    gap: 14px;
+    font-size: 12px;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    padding: 30px 20px;
+  }
+
+  .navbar h1 {
+    font-size: 22px;
+  }
+
+  .navbar ul {
+    display: none; /* simple & clean */
+  }
+
+  /* HERO */
+  .hero-content {
+    padding: 0 24px;
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  /* EXPERIENCE */
+  .experience {
+    grid-template-columns: 1fr 1fr;
+    padding: 60px 24px;
+    gap: 30px;
+  }
+
+  /* PRODUCT SECTION */
+  .product-card {
+    padding: 60px 24px;
+  }
+
+  .prod-card {
     grid-template-columns: 1fr;
+  }
+
+  .card-img {
+    height: 180px;
+  }
+
+  /* ESG SECTION */
+  .esg-container {
+    grid-template-columns: 1fr;
+    padding: 60px 24px;
+    gap: 40px;
+  }
+
+  .esg-image {
+    width: 100%;
+    height: 320px;
+  }
+
+  .indicator {
+    display: none;
+  }
+
+  /* FOOTER */
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom {
     flex-direction: column;
+    gap: 12px;
     text-align: center;
+  }
+}
+
+/* ===== SMALL MOBILE ===== */
+@media (max-width: 480px) {
+
+  /* HERO */
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .hero-content .tag {
+    font-size: 12px;
+  }
+
+  /* EXPERIENCE */
+  .experience {
+    grid-template-columns: 1fr;
+    padding: 50px 20px;
+  }
+
+  .aset h1 {
+    font-size: 36px;
+  }
+
+  /* PRODUCT */
+  .captionprod {
+    font-size: 22px;
+  }
+
+  .card-body h3 {
+    font-size: 18px;
+  }
+
+  .card-body p {
+    font-size: 14px;
+  }
+
+  /* ESG */
+  .captionesg {
+    font-size: 24px;
+  }
+
+  .esg-overlay h2 {
+    font-size: 22px;
+  }
+
+  /* FOOTER */
+  .footer-container {
+    grid-template-columns: 1fr;
   }
 }

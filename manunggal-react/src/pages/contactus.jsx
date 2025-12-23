@@ -33,6 +33,7 @@ function ContactUs() {
 
   return (
     <>
+    
       {/* LANGUAGE BAR */}
       <div className="language-selector">
         <ul>
@@ -46,10 +47,10 @@ function ContactUs() {
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
         <p className="titlenav"onClick={() => navigate("/")}>Manunggal</p>
         <ul>
-          <li onClick={() => navigate("")}>{t.produk}</li>
+            <li onClick={() => navigate("/produk")}>{t.produk}</li>
           <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/our_services")}>{t.layanan}</li>
-          <li className="active">{t.hubungi}</li>
+          <li onClick={() => navigate("/service")}>{t.layanan}</li>
+          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
 

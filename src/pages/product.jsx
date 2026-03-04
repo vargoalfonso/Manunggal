@@ -1,17 +1,21 @@
 import "../styles/product.css";
 import "../styles/reveal.css";
-import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { MPK } from "../content/companyProfile";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useLanguage } from "../i18n/useLanguage";
 const translations = {
   id: {
+    home: "Beranda",
     produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
     hubungi: "Hubungi Kami",
   },
   en: {
+    home: "Home",
     produk: "Products",
     tentang: "About MPK",
     layanan: "Our Services",
@@ -74,8 +78,7 @@ const productCards = [
 
 export default function Product() {
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState("id");
-  const navigate = useNavigate();
+  const { lang, setLang } = useLanguage();
   const t = translations[lang];
 
   const checklist = MPK.inquiryChecklist?.[lang] ?? [];
@@ -139,17 +142,17 @@ export default function Product() {
       </div>
 
       {/* NAVBAR */}
-      <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-        <p className="titlenav" onClick={() => navigate("/")}>
-          {MPK.brand}
-        </p>
-        <ul>
-          <li onClick={() => navigate("/produk")}>{t.produk}</li>
-          <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/service")}>{t.layanan}</li>
-          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
-        </ul>
-      </div>
+      <Navbar
+        brand={MPK.brand}
+        scrolled={scrolled}
+        links={[
+          { label: t.home, to: "/" },
+          { label: t.produk, to: "/produk" },
+          { label: t.tentang, to: "/about" },
+          { label: t.layanan, to: "/service" },
+          { label: t.hubungi, to: "/contact" },
+        ]}
+      />
       <section className="product-page">
         <div className="product-hero reveal">
           <span className="badge">{lang === "id" ? "Produk & Aplikasi" : "Products & Applications"}</span>
@@ -298,56 +301,7 @@ export default function Product() {
           </div>
         </div>
       </section>
-      <footer className="footer-dark">
-        <div className="footer-container">
-          <div className="footer-brand">
-            <h2>{MPK.legalName}</h2>
-            <p>{lang === "id" ? "Flexible Packaging Manufacturer" : "Flexible Packaging Manufacturer"}</p>
-
-            <iframe
-            title="maps"
-            src={MPK.location.mapsEmbedUrl}
-            width="100%"
-            height="180"
-            style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-          </div>
-
-          <div className="footer-links">
-            <h4>Services</h4>
-            <ul>
-              <li>Printing</li>
-              <li>Dry Lamination</li>
-              <li>Slitting & Rewinding</li>
-              <li>Bag Making</li>
-            </ul>
-          </div>
-
-          <div className="footer-links">
-            <h4>Company</h4>
-            <ul>
-              <li>{lang === "id" ? "Profil Perusahaan" : "Company Profile"}</li>
-              <li>{lang === "id" ? "Material" : "Materials"}</li>
-              <li>{lang === "id" ? "Aplikasi" : "Applications"}</li>
-            </ul>
-          </div>
-
-          <div className="footer-contact">
-            <h4>Contact</h4>
-            <p>☎ Office: {MPK.contact.phoneOffice}</p>
-            <p>☎ Factory: {MPK.contact.phoneFactory}</p>
-            <p>{MPK.location.addressLines[1]}</p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {MPK.brand}</span>
-          <span>Privacy • Terms</span>
-        </div>
-      </footer>
+      <Footer lang={lang} />
     </>
   );
 }

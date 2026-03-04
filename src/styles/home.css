@@ -4,7 +4,7 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 #root {
-  width: 100vw; /* Or 100% */
+  width: 100%;
   margin: 0;
 }
 body {

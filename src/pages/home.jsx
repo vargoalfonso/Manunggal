@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { MPK } from "../content/companyProfile";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useLanguage } from "../i18n/useLanguage";
 import "../styles/home.css";
 
 function useInView(ref, options) {
@@ -56,6 +58,7 @@ function CountUpNumber({ to, suffix = "", start, duration = 1400 }) {
 /* ===================== TRANSLATIONS ===================== */
 const translations = {
   id: {
+    home: "Beranda",
     produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
@@ -70,6 +73,7 @@ const translations = {
       "Kemasan fleksibel untuk berbagai industri—dibuat dengan fokus pada kualitas dan konsistensi.",
   },
   en: {
+    home: "Home",
     produk: "Products",
     tentang: "About MPK",
     layanan: "Our Services",
@@ -141,23 +145,27 @@ const esgItems = [
 ];
 /* ===================== COMPONENT ===================== */
 function Home() {
-  const navigate = useNavigate();
   /* language */
-  const [lang, setLang] = useState("id");
+  const { lang, setLang } = useLanguage();
   const t = translations[lang];
   /* slider & ESG */
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  const itemRefs = useRef([]);
+  const topbarRef = useRef(null);
+  const [topOffset, setTopOffset] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const h = topbarRef.current?.offsetHeight ?? 0;
+      setTopOffset(h);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(false);
   const [fadeImg, setFadeImg] = useState(false);
-  const [indicatorTop, setIndicatorTop] = useState(0);
-  useEffect(() => {
-    if (itemRefs.current[current]) {
-      setIndicatorTop(itemRefs.current[current].offsetTop);
-    }
-  }, [current]);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -165,6 +173,8 @@ function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navbarTopOffset = scrolled ? 0 : topOffset;
 
   const changeESG = (index) => {
     setFadeImg(true);
@@ -203,7 +213,7 @@ function Home() {
   return (
     <>
       {/* ================= LANGUAGE BAR ================= */}
-      <div className="language-selector">
+      <div className="language-selector" ref={topbarRef}>
         <ul>
           <li
             onClick={() => setLang("en")}
@@ -221,66 +231,19 @@ function Home() {
         </ul>
       </div>
 
-      {/* ================= NAVBAR ================= */}
-      <div className={`navbar ${scrolled ? "scrolled" : ""}`}>
-        <h1 onClick={() => navigate("/")}>{MPK.brand}</h1>
-
-        {/* DESKTOP MENU */}
-        <ul className="nav-links">
-          <li onClick={() => navigate("/produk")}>{t.produk}</li>
-          <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/service")}>{t.layanan}</li>
-          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
-        </ul>
-
-        {/* BURGER */}
-        <div
-          className={`burger ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      {/* MOBILE MENU */}
-      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-        <ul>
-          <li
-            onClick={() => {
-              navigate("/produk");
-              setMenuOpen(false);
-            }}
-          >
-            {t.produk}
-          </li>
-          <li
-            onClick={() => {
-              navigate("/about");
-              setMenuOpen(false);
-            }}
-          >
-            {t.tentang}
-          </li>
-          <li
-            onClick={() => {
-              navigate("/service");
-              setMenuOpen(false);
-            }}
-          >
-            {t.layanan}
-          </li>
-          <li
-            onClick={() => {
-              navigate("/contact");
-              setMenuOpen(false);
-            }}
-          >
-            {t.hubungi}
-          </li>
-        </ul>
-      </div>
+      <Navbar
+        brand={MPK.brand}
+        scrolled={scrolled}
+        variant="overlay"
+        topOffset={navbarTopOffset}
+        links={[
+          { label: t.home, to: "/" },
+          { label: t.produk, to: "/produk" },
+          { label: t.tentang, to: "/about" },
+          { label: t.layanan, to: "/service" },
+          { label: t.hubungi, to: "/contact" },
+        ]}
+      />
 
       {/* ================= HERO ================= */}
       <div className="hero-container">
@@ -368,56 +331,7 @@ function Home() {
         </div>
       </div>
 
-      <footer className="footer-dark">
-        <div className="footer-container">
-          <div className="footer-brand">
-            <h2>{MPK.legalName}</h2>
-            <p>{lang === "id" ? "Flexible Packaging Manufacturer" : "Flexible Packaging Manufacturer"}</p>
-
-            <iframe
-              title="maps"
-              src={MPK.location.mapsEmbedUrl}
-              width="100%"
-              height="180"
-              style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-
-          <div className="footer-links">
-            <h4>Services</h4>
-            <ul>
-              <li>Printing</li>
-              <li>Dry Lamination</li>
-              <li>Slitting & Rewinding</li>
-              <li>Bag Making</li>
-            </ul>
-          </div>
-
-          <div className="footer-links">
-            <h4>Company</h4>
-            <ul>
-              <li>{lang === "id" ? "Profil Perusahaan" : "Company Profile"}</li>
-              <li>{lang === "id" ? "Material" : "Materials"}</li>
-              <li>{lang === "id" ? "Aplikasi" : "Applications"}</li>
-            </ul>
-          </div>
-
-          <div className="footer-contact">
-            <h4>Contact</h4>
-            <p>☎ Office: {MPK.contact.phoneOffice}</p>
-            <p>☎ Factory: {MPK.contact.phoneFactory}</p>
-            <p>{MPK.location.addressLines[1]}</p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {MPK.brand}</span>
-          <span>Privacy • Terms</span>
-        </div>
-      </footer>
+      <Footer lang={lang} />
     </>
   );
 }

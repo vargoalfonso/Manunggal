@@ -1,171 +1,116 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MPK } from "../content/companyProfile";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { useLanguage } from "../i18n/useLanguage";
+import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
+import slider1 from "../assets/slider.jpeg";
+import slider2 from "../assets/slider2.jpeg";
+import slider3 from "../assets/slider3.jpeg";
+import Product1 from "../assets/semuajeniskemasan.jpeg";
+import Product2 from "../assets/kemasan beras.jpeg";
+import Product3 from "../assets/kemasan masker.jpeg";
+import Product4 from "../assets/kemasan sealer.jpeg";
+import Product5 from "../assets/kemasan vakum.jpeg";
+import Product6 from "../assets/proses .jpeg";
 
-function useInView(ref, options) {
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setInView(true);
-    }, options);
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref, options]);
-
-  return inView;
-}
-
-function CountUpNumber({ to, suffix = "", start, duration = 1400 }) {
-  const [value, setValue] = useState(0);
-  const hasRunRef = useRef(false);
-
-  useEffect(() => {
-    if (!start || hasRunRef.current) return;
-    hasRunRef.current = true;
-
-    const startTime = performance.now();
-    const target = Number(to) || 0;
-
-    const tick = (now) => {
-      const elapsed = now - startTime;
-      const t = Math.min(1, elapsed / duration);
-      // easeOutCubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(eased * target));
-      if (t < 1) requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-  }, [start, to, duration]);
-
-  const formatted = new Intl.NumberFormat().format(value);
-  return (
-    <>
-      {formatted}
-      {suffix}
-    </>
-  );
-}
 
 /* ===================== TRANSLATIONS ===================== */
 const translations = {
   id: {
-    home: "Beranda",
     produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
     hubungi: "Hubungi Kami",
     tag: "Flexible Packaging",
-    heroTitle: `${MPK.legalName} (${MPK.brand})`,
+    heroTitle: "Solusi Kemasan Plastik untuk Brand Anda",
     heroDesc:
-      "Produsen kemasan fleksibel dengan proses produksi lengkap dari printing hingga bag making. Konsultasikan kebutuhan material & format kemasan Anda bersama tim kami.",
-    esgTitle: "Prinsip Kerja MPK",
-    esgDesc: MPK.statement.id,
-    captionProd:
-      "Kemasan fleksibel untuk berbagai industri—dibuat dengan fokus pada kualitas dan konsistensi.",
+      "Kami memproduksi kemasan roll, pouch, karung, dan vacuum bag untuk kebutuhan pangan, retail, serta industri dengan kualitas cetak yang konsisten.",
+    esgTitle: "Keunggulan MPK",
+    esgDesc:
+      "Material, cetak, dan proses produksi kami dirancang agar kemasan tampil kuat, aman, dan siap bersaing di pasar.",
   },
   en: {
-    home: "Home",
     produk: "Products",
     tentang: "About MPK",
     layanan: "Our Services",
     hubungi: "Contact Us",
     tag: "Flexible Packaging",
-    heroTitle: `${MPK.legalName} (${MPK.brand})`,
+    heroTitle: "Plastic Packaging Solutions for Your Brand",
     heroDesc:
-      "A flexible packaging manufacturer with end-to-end processes—from printing to bag making. Talk to us about material structure and packaging formats.",
-    esgTitle: "How MPK Works",
-    esgDesc: MPK.statement.en,
-    captionProd:
-      "Flexible packaging for many industries—built with quality and consistency in mind.",
+      "We produce roll stock, pouches, sacks, and vacuum bags for food, retail, and industrial needs with reliable print quality.",
+    esgTitle: "MPK Advantages",
+    esgDesc:
+      "Our materials, printing, and production process help your packaging stay strong, safe, and market-ready.",
   },
 };
-const images = [
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1920",
-  "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=1920",
-];
+const images = [slider1, slider2, slider3];
 const cards = [
   {
-    img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=800",
-    title: "Snack Packaging",
-    text: "Struktur film untuk menjaga kerenyahan & aroma produk.",
+    img: Product1,
+    title: "Semua Jenis Kemasan",
+    text: "Pilihan roll, pouch, vacuum, dan karung untuk kebutuhan pangan, retail, dan industri.",
   },
   {
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800",
-    title: "Coffee Packaging",
-    text: "Pilihan material untuk membantu menjaga kesegaran dan tampilan premium.",
+    img: Product2,
+    title: "Kemasan Beras",
+    text: "Kemasan tangguh untuk beras dan bahan pokok dengan area branding yang jelas.",
   },
   {
-    img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
-    title: "Sugar Packaging",
-    text: "Desain dan kekuatan seal untuk distribusi yang aman.",
+    img: Product3,
+    title: "Kemasan Masker",
+    text: "Kemasan retail yang rapi dan informatif untuk produk kesehatan dan kebutuhan harian.",
   },
   {
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800",
-    title: "Cooking Oil Packaging",
-    text: "Opsi material untuk kebutuhan ketahanan & kualitas cetak.",
+    img: Product4,
+    title: "Kemasan Sealer",
+    text: "Solusi kemasan praktis yang mudah disegel untuk menjaga isi tetap aman dan rapi.",
   },
   {
-    img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796",
-    title: "Spice Packaging",
-    text: "Struktur film yang mendukung barrier dan ketahanan aroma.",
+    img: Product5,
+    title: "Kemasan Vakum",
+    text: "Kemasan food grade untuk membantu menjaga kesegaran produk lebih lama.",
   },
   {
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800",
-    title: "Detergent Packaging",
-    text: "Solusi film kuat untuk kebutuhan produk rumah tangga.",
+    img: Product6,
+    title: "Proses Produksi",
+    text: "Alur cetak, laminasi, dan finishing yang terkontrol untuk hasil lebih konsisten.",
   },
 ];
 // Menjadi ini
 const esgItems = [
   {
-    title: "Quality First",
-    desc: "Fokus pada konsistensi hasil cetak, laminasi, dan kualitas akhir produk.",
-    img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    title: "Material sesuai kebutuhan produk",
+    desc: "Tersedia opsi roll, pouch, vacuum, dan karung dengan struktur material yang disesuaikan dengan isi, berat, dan kebutuhan distribusi.",
+    img: Product1,
   },
   {
-    title: "Material & Format Fit",
-    desc: `Pilihan material seperti ${MPK.materials.join(", ")} untuk menyesuaikan kebutuhan produk.`,
-    img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    title: "Kualitas cetak lebih konsisten",
+    desc: "Tampilan kemasan dibuat lebih rapi, informatif, dan mendukung identitas brand agar menonjol di pasar.",
+    img: Product4,
   },
   {
-    title: "Continuous Improvement",
-    desc: "Pengembangan produk baru dan peningkatan kualitas/kapasitas mesin.",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2nmWoa-66Yo5xylQwIiAxtvMrK2pB2l4CA&s",
+    title: "Produksi rapi dan siap kirim",
+    desc: "Alur produksi yang efisien membantu menjaga repeat order, ketepatan spesifikasi, dan kesiapan suplai kemasan Anda.",
+    img: Product6,
   },
 ];
 /* ===================== COMPONENT ===================== */
 function Home() {
+  const navigate = useNavigate();
   /* language */
-  const { lang, setLang } = useLanguage();
+  const [lang, setLang] = useState("id");
   const t = translations[lang];
   /* slider & ESG */
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const topbarRef = useRef(null);
-  const [topOffset, setTopOffset] = useState(0);
-
-  useEffect(() => {
-    const measure = () => {
-      const h = topbarRef.current?.offsetHeight ?? 0;
-      setTopOffset(h);
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
+  const itemRefs = useRef([]);
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(false);
   const [fadeImg, setFadeImg] = useState(false);
+  const [indicatorTop, setIndicatorTop] = useState(0);
+  useEffect(() => {
+    if (itemRefs.current[current]) {
+      setIndicatorTop(itemRefs.current[current].offsetTop);
+    }
+  }, [current]);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -173,8 +118,6 @@ function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navbarTopOffset = scrolled ? 0 : topOffset;
 
   const changeESG = (index) => {
     setFadeImg(true);
@@ -197,23 +140,10 @@ function Home() {
       setFade(false);
     }, 300);
   };
-
-  const experienceRef = useRef(null);
-  const experienceInView = useInView(experienceRef, {
-    threshold: 0.35,
-    rootMargin: "0px 0px -10% 0px",
-  });
-
-  const experienceItems = [
-    { to: MPK.facilities.length, suffix: "", label: lang === "id" ? "PROSES PRODUKSI" : "PRODUCTION PROCESSES" },
-    { to: MPK.materials.length, suffix: "", label: lang === "id" ? "OPSIONAL MATERIAL" : "MATERIAL OPTIONS" },
-    { to: MPK.packagingApplications.length, suffix: "+", label: lang === "id" ? "APLIKASI KEMASAN" : "PACKAGING APPLICATIONS" },
-    { to: 5, suffix: "", label: lang === "id" ? "HARI KERJA / MINGGU" : "WORKDAYS / WEEK" },
-  ];
   return (
     <>
       {/* ================= LANGUAGE BAR ================= */}
-      <div className="language-selector" ref={topbarRef}>
+      <div className="language-selector">
         <ul>
           <li
             onClick={() => setLang("en")}
@@ -227,23 +157,70 @@ function Home() {
           >
             🇮🇩 Indonesia
           </li>
-          <li>Office: {MPK.contact.phoneOffice}</li>
+          <li>Call us on +62</li>
         </ul>
       </div>
 
-      <Navbar
-        brand={MPK.brand}
-        scrolled={scrolled}
-        variant="overlay"
-        topOffset={navbarTopOffset}
-        links={[
-          { label: t.home, to: "/" },
-          { label: t.produk, to: "/produk" },
-          { label: t.tentang, to: "/about" },
-          { label: t.layanan, to: "/service" },
-          { label: t.hubungi, to: "/contact" },
-        ]}
-      />
+      {/* ================= NAVBAR ================= */}
+      <div className={`navbar ${scrolled ? "scrolled" : ""}`}>
+        <h1 onClick={() => navigate("/")}>Manunggal</h1>
+
+        {/* DESKTOP MENU */}
+        <ul className="nav-links">
+          <li onClick={() => navigate("/produk")}>{t.produk}</li>
+          <li onClick={() => navigate("/about")}>{t.tentang}</li>
+          <li onClick={() => navigate("/service")}>{t.layanan}</li>
+          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
+        </ul>
+
+        {/* BURGER */}
+        <div
+          className={`burger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
+        <ul>
+          <li
+            onClick={() => {
+              navigate("/produk");
+              setMenuOpen(false);
+            }}
+          >
+            {t.produk}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/about");
+              setMenuOpen(false);
+            }}
+          >
+            {t.tentang}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/service");
+              setMenuOpen(false);
+            }}
+          >
+            {t.layanan}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/contact");
+              setMenuOpen(false);
+            }}
+          >
+            {t.hubungi}
+          </li>
+        </ul>
+      </div>
 
       {/* ================= HERO ================= */}
       <div className="hero-container">
@@ -265,25 +242,29 @@ function Home() {
         </div>
       </div>
       {/* ================= validasi ================= */}
-      <div className="experience" ref={experienceRef}>
-        {experienceItems.map((item) => (
-          <div className="aset" key={item.label}>
-            <h1>
-              <CountUpNumber
-                to={item.to}
-                suffix={item.suffix}
-                start={experienceInView}
-              />
-            </h1>
-            <p>{item.label}</p>
-          </div>
-        ))}
+      <div className="experience">
+        <div className="aset">
+          <h1>120+</h1>
+          <p>VARIAN KEMASAN</p>
+        </div>
+        <div className="aset">
+          <h1>50+</h1>
+          <p>MITRA BRAND</p>
+        </div>
+        <div className="aset">
+          <h1>98%</h1>
+          <p>REPEAT ORDER</p>
+        </div>
+        <div className="aset">
+          <h1>15+</h1>
+          <p>TAHUN PENGALAMAN</p>
+        </div>
       </div>
       {/* ================= PRODUCT ================= */}
       <div className="product-card">
         <h1 className="prod">{t.produk}</h1>
         <h1 className="captionprod">
-          {t.captionProd}
+          Kemasan Fleksibel untuk Berbagai <br /> Kebutuhan Produk Anda
         </h1>
         <div className="prod-card">
           {cards.map((card, i) => (
@@ -292,7 +273,7 @@ function Home() {
               <div className="card-body">
                 <h3>{card.title}</h3>
                 <p>{card.text}</p>
-                <p className="learnmore">learn more ›</p>
+                <p className="learnmore">Pelajari solusi kemasannya ›</p>
               </div>
             </div>
           ))}
@@ -304,9 +285,11 @@ function Home() {
         <div className="esg-list">
           <div className="esg-title">
             <p className="titleesg">{t.esgTitle}</p>
-            <p className="captionesg">{t.esgDesc}</p>
+            <p className="captionesg">
+              {t.esgDesc}
+            </p>
           </div>
-          <div className="indicator" style={{ top: current * 170 + "px" }} />
+          <div className="indicator" style={{ top: current * 110 + "px" }} />
           {esgItems.map((item, i) => (
             <div
               key={i}
@@ -325,13 +308,61 @@ function Home() {
             alt=""
           />
           <div className={`esg-overlay ${!fadeImg ? "show" : ""}`}>
-            <span className="overlay-tag">SUSTAINABLE IMPACT</span>
+            <span className="overlay-tag">MANUNGGAL PACKAGING</span>
             <h2>{esgItems[current].title}</h2>
           </div>
         </div>
       </div>
 
-      <Footer lang={lang} />
+      <footer className="footer-dark">
+        <div className="footer-container">
+          <div className="footer-brand">
+            <h2>Manunggal</h2>
+            <p>Flexible Packaging & Plastic Solutions</p>
+
+            <iframe
+              title="maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.09134404035!2d106.51413157487074!3d-6.250644161249784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4206d3228bb2cf%3A0x8acae4dab232625e!2sBojong%2C%20Cikupa%2C%20Tangerang%20Regency%2C%20Banten%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+              width="100%"
+              height="180"
+              style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div className="footer-links">
+            <h4>Produk</h4>
+            <ul>
+              <li>Roll Film</li>
+              <li>Standing Pouch</li>
+              <li>Kemasan Beras</li>
+              <li>Vacuum Bag</li>
+            </ul>
+          </div>
+
+          <div className="footer-links">
+            <h4>Perusahaan</h4>
+            <ul>
+              <li>Tentang Kami</li>
+              <li>Layanan Produksi</li>
+              <li>Kontrol Kualitas</li>
+            </ul>
+          </div>
+
+          <div className="footer-contact">
+            <h4>Contact</h4>
+            <p>☎ 0812-3456-7890</p>
+            <p>Tangerang, Indonesia</p>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© 2025 Manunggal</span>
+          <span>Privacy • Terms</span>
+        </div>
+      </footer>
     </>
   );
 }

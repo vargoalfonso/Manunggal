@@ -52,6 +52,19 @@
   margin-bottom: 12px;
 }
 
+.product-card-thumb {
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.product-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .product-desc {
   color: #555;
   margin-bottom: 16px;
@@ -96,111 +109,13 @@
   color: #555;
 }
 
-
-
-/* EXTRA GUIDES */
-.product-guides{
-  margin-top: 70px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-}
-
-.guide-panel{
-  background: linear-gradient(180deg, #ffffff, #fbfdff);
-  border: 1px solid rgba(15,23,42,0.10);
-  border-radius: 24px;
-  padding: 22px;
-  box-shadow: 0 14px 34px rgba(2,6,23,0.06);
-}
-
-.structure-grid{
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.structure{
-  background: rgba(15,23,42,0.03);
-  border: 1px solid rgba(15,23,42,0.08);
-  border-radius: 16px;
-  padding: 14px;
-}
-
-.structure h3{ margin: 0 0 8px; font-size: 16px; }
-.structure p{ margin: 0; color: rgba(15,23,42,0.72); line-height: 1.6; }
-
-.product-checklist{
-  list-style: none;
-  padding: 0;
-  margin: 14px 0 0;
-}
-
-.product-checklist li{
-  position: relative;
-  padding-left: 20px;
-  margin: 10px 0;
-  color: rgba(15,23,42,0.82);
-}
-
-.product-checklist li::before{
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #f97316;
-  font-weight: 900;
-}
-
-.product-faq{
-  margin-top: 70px;
-  padding: 22px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(249,115,22,0.08));
-  border: 1px solid rgba(15,23,42,0.10);
-}
-
-.faq-grid{
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.faq-grid details{
-  background: rgba(255,255,255,0.88);
-  border: 1px solid rgba(15,23,42,0.10);
-  border-radius: 16px;
-  padding: 12px 14px;
-}
-
-.faq-grid summary{ cursor: pointer; font-weight: 900; color: rgba(15,23,42,0.88); }
-.faq-grid p{ margin: 10px 0 0; color: rgba(15,23,42,0.72); }
-
-.guide-grid{
-  margin-top: 22px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  text-align: left;
-}
-
-.guide{
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(15,23,42,0.10);
-  border-radius: 18px;
-  padding: 16px;
-}
-
-.guide h3{ margin: 0 0 8px; font-size: 16px; }
-.guide p{ margin: 0; color: #475569; font-size: 14px; line-height: 1.6; }
-
-@media (max-width: 860px){
-  .product-cta{ padding: 28px; }
-  .guide-grid{ grid-template-columns: 1fr; }
-  .product-guides{ grid-template-columns: 1fr; }
-  .faq-grid{ grid-template-columns: 1fr; }
+.btn-primary {
+  background: #f97316;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* ================= IMAGE PRODUCT CARDS ================= */

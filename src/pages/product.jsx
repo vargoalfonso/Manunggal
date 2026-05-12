@@ -1,21 +1,20 @@
 import "../styles/product.css";
-import "../styles/reveal.css";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { MPK } from "../content/companyProfile";
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { useLanguage } from "../i18n/useLanguage";
+import allPackaging from "../assets/semuajeniskemasan.jpeg";
+import ricePackaging from "../assets/kemasan beras.jpeg";
+import maskPackaging from "../assets/kemasan masker.jpeg";
+import sealerPackaging from "../assets/kemasan sealer.jpeg";
+import vacuumPackaging from "../assets/kemasan vakum.jpeg";
+import processPackaging from "../assets/proses .jpeg";
 const translations = {
   id: {
-    home: "Beranda",
     produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
     hubungi: "Hubungi Kami",
   },
   en: {
-    home: "Home",
     produk: "Products",
     tentang: "About MPK",
     layanan: "Our Services",
@@ -24,103 +23,118 @@ const translations = {
 };
 const products = [
   {
-    title: "Packaging Applications",
-    desc:
-      "Contoh aplikasi kemasan yang dapat kami kerjakan sesuai kebutuhan produk Anda.",
-    features: MPK.packagingApplications,
+    title: "Roll Film Printing",
+    image: allPackaging,
+    desc: "Kemasan roll printing untuk mesin otomatis dengan hasil cetak stabil, efisien untuk produksi massal, dan fleksibel menyesuaikan karakter produk.",
+    features: [
+      "Cocok untuk snack, kopi, gula, bumbu, dan kebutuhan retail modern",
+      "Pilihan material PET, OPP, CPP, PE, dan kombinasi multilayer",
+      "Desain cetak custom untuk identitas brand dan informasi produk",
+      "Ideal untuk mesin filling otomatis dengan volume produksi menengah hingga besar",
+    ],
   },
   {
-    title: "Packaging Materials",
-    desc:
-      "Pilihan material untuk menyesuaikan kebutuhan barrier, kekuatan, dan tampilan kemasan.",
-    features: MPK.materials,
+    title: "Standing Pouch & Center Seal",
+    image: maskPackaging,
+    desc: "Kemasan pouch yang praktis dan menarik untuk display rak, cocok untuk produk konsumsi harian yang membutuhkan tampilan profesional dan perlindungan optimal.",
+    features: [
+      "Model standing pouch, three side seal, center seal, dan bentuk custom",
+      "Tersedia opsi zipper, euro hole, window, serta finishing glossy atau doff",
+      "Membantu melindungi produk dari udara, kelembapan, dan kontaminasi ringan",
+      "Sangat cocok untuk makanan ringan, masker, kopi, bubuk minuman, dan produk retail",
+    ],
   },
   {
-    title: "Production Facilities",
-    desc:
-      "Rangkaian fasilitas produksi untuk mendukung kebutuhan kemasan fleksibel."
-    ,
-    features: MPK.facilities,
+    title: "Kemasan Beras & Karung Laminasi",
+    image: ricePackaging,
+    desc: "Kemasan beras dan karung laminasi yang dirancang kuat untuk distribusi, penyimpanan, dan branding produk kebutuhan pokok di pasar retail maupun grosir.",
+    features: [
+      "Ukuran, ketebalan, dan model handle dapat disesuaikan",
+      "Cocok untuk beras, gula, tepung, pakan, dan bahan kebutuhan pokok lain",
+      "Sambungan rapi, kuat, dan tahan untuk kebutuhan distribusi",
+      "Memberikan ruang informasi produk dan branding yang lebih jelas",
+    ],
   },
   {
-    title: "Future Plans",
-    desc:
-      "Komitmen MPK untuk terus mengembangkan produk dan meningkatkan kapasitas produksi.",
-    features: MPK.futurePlans.id,
+    title: "Sealer Bag",
+    image: sealerPackaging,
+    desc: "Sealer bag untuk pengemasan praktis yang membantu menjaga kerapian, keamanan isi, dan tampilan produk sebelum masuk ke pasar.",
+    features: [
+      "Cocok untuk bumbu, makanan kering, komponen retail, dan produk harian",
+      "Ukuran dan ketebalan dapat disiapkan sesuai kebutuhan filling",
+      "Mudah dipadukan dengan mesin sealer manual maupun semi otomatis",
+      "Membantu kemasan tampil lebih rapi, bersih, dan profesional",
+    ],
+  },
+  {
+    title: "Vacuum Bag",
+    image: vacuumPackaging,
+    desc: "Kemasan vacuum bag untuk membantu menjaga kesegaran produk lebih lama, mengurangi udara di dalam kemasan, dan meningkatkan higienitas produk.",
+    features: [
+      "Cocok untuk frozen food, daging, seafood, bumbu, dan produk olahan",
+      "Material food grade yang aman untuk kebutuhan pengemasan pangan",
+      "Tersedia berbagai ukuran, ketebalan, dan spesifikasi seal strength",
+      "Mendukung tampilan produk yang bersih, padat, dan siap distribusi",
+    ],
+  },
+  {
+    title: "Proses Produksi & Konversi",
+    image: processPackaging,
+    desc: "Tahap proses produksi kami memastikan setiap kemasan melewati alur cetak, laminasi, pemotongan, dan finishing yang terkontrol sebelum dikirim ke pelanggan.",
+    features: [
+      "Proses kerja rapi untuk menjaga konsistensi hasil cetak dan ukuran",
+      "Pemeriksaan kualitas dilakukan pada material, warna, dan kekuatan seal",
+      "Mendukung repeat order dengan spesifikasi yang lebih stabil",
+      "Cocok untuk brand yang membutuhkan suplai kemasan berkelanjutan",
+    ],
   },
 ];
 const productCards = [
   {
-    title: "Flexible Packaging",
-    short: "Solusi kemasan fleksibel untuk berbagai industri dan kebutuhan distribusi.",
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop",
+    title: "Semua Jenis Kemasan",
+    short: "Pilihan roll, pouch, vacuum, dan karung untuk berbagai kategori produk retail maupun industri.",
+    image: allPackaging,
   },
   {
-    title: "Material Options",
-    short: `LLDPE, CPP, VMCPP, VMPET, KRAFT, OPP, PET, NYLON, dan lainnya.`,
-    image:
-      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop",
+    title: "Kemasan Beras",
+    short: "Kemasan kuat untuk beras dan kebutuhan pokok dengan area cetak yang informatif.",
+    image: ricePackaging,
   },
   {
-    title: "Production Process",
-    short: "Printing, laminasi, slitting, rewinding, hingga pembuatan bag/pouch.",
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop",
+    title: "Kemasan Masker & Retail",
+    short: "Kemasan praktis untuk produk kesehatan, retail, dan kebutuhan display rak.",
+    image: maskPackaging,
   },
   {
-    title: "Packaging Applications",
-    short: "Snack, coffee, sugar, cooking oil, detergent, spices, dan lainnya.",
-    image:
-      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop",
+    title: "Kemasan Sealer",
+    short: "Kemasan praktis untuk menjaga kerapian isi, keamanan, dan kemudahan sealing.",
+    image: sealerPackaging,
+  },
+  {
+    title: "Kemasan Vakum",
+    short: "Solusi food grade untuk membantu memperpanjang kesegaran dan shelf life produk.",
+    image: vacuumPackaging,
+  },
+  {
+    title: "Proses Produksi",
+    short: "Tahapan cetak, laminasi, dan finishing yang mendukung hasil kemasan lebih konsisten.",
+    image: processPackaging,
   },
 ];
 
 export default function Product() {
   const [scrolled, setScrolled] = useState(false);
-  const { lang, setLang } = useLanguage();
+  const [lang, setLang] = useState("id");
+  const navigate = useNavigate();
   const t = translations[lang];
 
-  const checklist = MPK.inquiryChecklist?.[lang] ?? [];
-
-  const structureExamples =
-    lang === "id"
-      ? [
-          {
-            title: "OPP / VMCPP",
-            desc: "Umum untuk kebutuhan tampilan & barrier tertentu. Struktur final mengikuti karakter produk dan jalur distribusi.",
-          },
-          {
-            title: "PET / VMPET / PE",
-            desc: "Dipakai pada beberapa kebutuhan ketahanan dan stabilitas. Kami bantu sesuaikan berdasarkan kebutuhan sealing dan handling.",
-          },
-          {
-            title: "KRAFT / Film",
-            desc: "Alternatif tampilan natural/premium. Cocok untuk beberapa kategori produk dengan preferensi estetika tertentu.",
-          },
-        ]
-      : [
-          {
-            title: "OPP / VMCPP",
-            desc: "A common option for certain shelf appeal and barrier needs. Final structure depends on product and distribution.",
-          },
-          {
-            title: "PET / VMPET / PE",
-            desc: "Used for some durability and stability needs. We align it with sealing and handling requirements.",
-          },
-          {
-            title: "KRAFT / Film",
-            desc: "A natural/premium look alternative, depending on category and aesthetic preference.",
-          },
-        ];
-
-  useScrollReveal();
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <>
       <div className="language-selector">
@@ -137,46 +151,47 @@ export default function Product() {
           >
             🇮🇩 Indonesia
           </li>
-          <li>Office: {MPK.contact.phoneOffice}</li>
+          <li>Call us +62</li>
         </ul>
       </div>
 
       {/* NAVBAR */}
-      <Navbar
-        brand={MPK.brand}
-        scrolled={scrolled}
-        links={[
-          { label: t.home, to: "/" },
-          { label: t.produk, to: "/produk" },
-          { label: t.tentang, to: "/about" },
-          { label: t.layanan, to: "/service" },
-          { label: t.hubungi, to: "/contact" },
-        ]}
-      />
+      <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
+        <p className="titlenav" onClick={() => navigate("/")}>
+          Manunggal
+        </p>
+        <ul>
+          <li onClick={() => navigate("/produk")}>{t.produk}</li>
+          <li onClick={() => navigate("/about")}>{t.tentang}</li>
+          <li onClick={() => navigate("/service")}>{t.layanan}</li>
+          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
+        </ul>
+      </div>
       <section className="product-page">
-        <div className="product-hero reveal">
-          <span className="badge">{lang === "id" ? "Produk & Aplikasi" : "Products & Applications"}</span>
+        <div className="product-hero">
+          <span className="badge">Produk Kami</span>
           <h1>
-            {lang === "id" ? "Kemasan Fleksibel untuk" : "Flexible Packaging for"}
-            <span> Berbagai Industri</span>
+            Solusi Produk Kemasan untuk
+            <span> Brand, Retail, dan Industri</span>
           </h1>
           <p>
-            {lang === "id"
-              ? "MPK membantu Anda menentukan struktur material dan format kemasan yang tepat—dari tampilan hingga ketahanan selama distribusi."
-              : "MPK helps you define the right material structure and packaging format—from shelf appeal to distribution durability."}
+            Kami menghadirkan berbagai solusi kemasan plastik yang dirancang
+            untuk melindungi isi produk, meningkatkan daya tarik visual di rak,
+            dan mendukung proses pengemasan hingga distribusi secara lebih
+            efisien.
           </p>
         </div>
-        <div className="product-card-list reveal delay-1">
-          <h2 className="section-title">{lang === "id" ? "Ringkasan Kapabilitas" : "Capability Overview"}</h2>
+        <div className="product-card-list">
+          <h2 className="section-title">Daftar Produk Kami</h2>
           <p className="section-desc">
-            {lang === "id"
-              ? "Berikut ringkasan material, proses, dan contoh aplikasi kemasan yang menjadi fokus MPK."
-              : "A quick overview of MPK materials, processes, and application examples."}
+            Setiap jenis kemasan dapat disesuaikan dari sisi ukuran, material,
+            model, hingga kebutuhan cetak agar selaras dengan karakter produk
+            dan strategi penjualan Anda.
           </p>
 
           <div className="product-card-grid">
             {productCards.map((item, index) => (
-              <div className={`product-image-card reveal delay-${(index % 3) + 1}`} key={index}>
+              <div className="product-image-card" key={index}>
                 <div className="product-image-wrapper">
                   <img src={item.image} alt={item.title} />
                 </div>
@@ -189,14 +204,17 @@ export default function Product() {
             ))}
           </div>
         </div>
-          <h1 className="listservice reveal">
-          {lang === "id" ? "Detail Produk & Kapabilitas" : "Products & Capability Details"}
-          <span className="service"> {lang === "id" ? "(Material • Proses • Aplikasi)" : "(Materials • Process • Applications)"}</span>
-        </h1>
+        <h1 className="listservice">
+            Spesifikasi Produk untuk
+            <span className="service"> Kebutuhan Kemasan Modern</span>
+          </h1>
         <div className="product-list">
           
           {products.map((item, index) => (
-              <div className={`product-card reveal delay-${(index % 3) + 1}`} key={index}>
+            <div className="product-card" key={index}>
+              <div className="product-card-thumb">
+                <img src={item.image} alt={item.title} />
+              </div>
               <h2>{item.title}</h2>
               <p className="product-desc">{item.desc}</p>
 
@@ -209,99 +227,67 @@ export default function Product() {
           ))}
         </div>
 
-        <div className="product-guides">
-          <div className="guide-panel reveal">
-            <span className="badge">{lang === "id" ? "Contoh Struktur" : "Structure Examples"}</span>
-            <h2>{lang === "id" ? "Mulai dari contoh, finalisasi via konsultasi" : "Start with examples, finalize via consultation"}</h2>
-            <p>
-              {lang === "id"
-                ? "Berikut beberapa contoh struktur yang sering muncul pada flexible packaging. Spesifikasi akhir selalu menyesuaikan produk, barrier, dan distribusi."
-                : "Below are common structures in flexible packaging. Final specs always depend on product, barrier, and distribution."}
-            </p>
-
-            <div className="structure-grid">
-              {structureExamples.map((s) => (
-                <div className="structure" key={s.title}>
-                  <h3>{s.title}</h3>
-                  <p>{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="guide-panel reveal delay-1">
-            <span className="badge">{lang === "id" ? "Checklist" : "Checklist"}</span>
-            <h2>{lang === "id" ? "Agar rekomendasi cepat dan tepat" : "For faster, more accurate recommendations"}</h2>
-            <p>
-              {lang === "id"
-                ? "Kirim data berikut saat diskusi—kami bisa lebih cepat mengarahkan struktur material dan format."
-                : "Share these during discussion so we can align material structure and format faster."}
-            </p>
-            <ul className="product-checklist">
-              {(checklist.length ? checklist : [
-                lang === "id" ? "Nama produk & karakter isi" : "Product name & contents characteristics",
-                lang === "id" ? "Target ukuran & format" : "Target size & format",
-                lang === "id" ? "Perkiraan quantity" : "Estimated quantity",
-                lang === "id" ? "Preferensi material/barrier" : "Material/barrier preference",
-              ]).map((c) => (
-                <li key={c}>{c}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="product-cta reveal">
-          <h2>{lang === "id" ? "Panduan Cepat: Pilih Kemasan" : "Quick Guide: Choose Packaging"}</h2>
+        <div className="product-cta">
+          <h2>Butuh Kemasan yang Disesuaikan?</h2>
           <p>
-            {lang === "id"
-              ? "Secara umum, kami bantu menyesuaikan kemasan berdasarkan 4 hal: produk, barrier, format, dan jalur distribusi."
-              : "We typically align packaging based on 4 things: product, barrier, format, and distribution."}
+            Tim kami siap membantu menentukan struktur material, ukuran, model,
+            sampai kebutuhan cetak agar kemasan Anda lebih fungsional, menarik,
+            dan siap diproduksi sesuai target pasar.
           </p>
-          <div className="guide-grid">
-            <div className="guide">
-              <h3>{lang === "id" ? "1) Produk" : "1) Product"}</h3>
-              <p>{lang === "id" ? "Bubuk, cair, berminyak, atau higroskopis." : "Powder, liquid, oily, or hygroscopic."}</p>
-            </div>
-            <div className="guide">
-              <h3>{lang === "id" ? "2) Barrier" : "2) Barrier"}</h3>
-              <p>{lang === "id" ? "Kebutuhan aroma, uap air, dan oksigen." : "Aroma, moisture vapor, and oxygen needs."}</p>
-            </div>
-            <div className="guide">
-              <h3>{lang === "id" ? "3) Format" : "3) Format"}</h3>
-              <p>{lang === "id" ? `Roll atau bag/pouch (${MPK.formats.join(" / ")}).` : `Roll or bag/pouch (${MPK.formats.join(" / ")}).`}</p>
-            </div>
-            <div className="guide">
-              <h3>{lang === "id" ? "4) Distribusi" : "4) Distribution"}</h3>
-              <p>{lang === "id" ? "Handling, transport, dan kondisi penyimpanan." : "Handling, transport, and storage conditions."}</p>
-            </div>
-          </div>
-         
-        </div>
-
-        <div className="product-faq reveal">
-          <span className="badge">FAQ</span>
-          <h2>{lang === "id" ? "Pertanyaan Umum" : "Common Questions"}</h2>
-          <div className="faq-grid">
-            <details>
-              <summary>{lang === "id" ? "Apakah MPK bisa bantu dari desain?" : "Can MPK help from the design stage?"}</summary>
-              <p>{lang === "id" ? "Kami dapat membantu dari sisi spesifikasi kemasan (struktur material, format, dan kesiapan artwork untuk proses produksi)." : "We help from packaging specifications (material structure, format, and artwork readiness for production)."}</p>
-            </details>
-            <details>
-              <summary>{lang === "id" ? "Bagaimana menentukan barrier yang dibutuhkan?" : "How do we define the needed barrier?"}</summary>
-              <p>{lang === "id" ? "Biasanya ditentukan dari aroma, sensitivitas uap air/oksigen, dan cara distribusi. Ceritakan kondisi produk, kami bantu arahkan." : "Usually defined by aroma, sensitivity to moisture/oxygen, and distribution. Share your conditions and we’ll guide you."}</p>
-            </details>
-            <details>
-              <summary>{lang === "id" ? "Apakah bisa roll maupun pouch?" : "Can you do both roll and pouch?"}</summary>
-              <p>{lang === "id" ? `Ya, format yang umum adalah ${MPK.formats.join(" / ")}.` : `Yes—common formats include ${MPK.formats.join(" / ")}.`}</p>
-            </details>
-            <details>
-              <summary>{lang === "id" ? "Apa langkah pertama yang paling aman?" : "What’s the safest first step?"}</summary>
-              <p>{lang === "id" ? "Kirim brief singkat + contoh produk (bila ada). Setelah itu kita cocokkan struktur material, format, dan proses produksi." : "Send a short brief plus a product sample (if available). Then we align structure, format, and process."}</p>
-            </details>
-          </div>
+          <a href="/contact" className="btn-primary">
+            Konsultasi Sekarang
+          </a>
         </div>
       </section>
-      <Footer lang={lang} />
+      <footer className="footer-dark">
+        <div className="footer-container">
+          <div className="footer-brand">
+            <h2>Manunggal</h2>
+            <p>Flexible Packaging & Plastic Solutions</p>
+
+            <iframe
+            title="maps"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.09134404035!2d106.51413157487074!3d-6.250644161249784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4206d3228bb2cf%3A0x8acae4dab232625e!2sBojong%2C%20Cikupa%2C%20Tangerang%20Regency%2C%20Banten%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+            width="100%"
+            height="180"
+            style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+          </div>
+
+          <div className="footer-links">
+            <h4>Produk</h4>
+            <ul>
+              <li>Roll Film</li>
+              <li>Standing Pouch</li>
+              <li>Kemasan Beras</li>
+              <li>Vacuum Bag</li>
+            </ul>
+          </div>
+
+          <div className="footer-links">
+            <h4>Perusahaan</h4>
+            <ul>
+              <li>Tentang Kami</li>
+              <li>Layanan Produksi</li>
+              <li>Kontrol Kualitas</li>
+            </ul>
+          </div>
+
+          <div className="footer-contact">
+            <h4>Contact</h4>
+            <p>☎ 0812-3456-7890</p>
+            <p>Tangerang, Indonesia</p>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© 2025 Manunggal</span>
+          <span>Privacy • Terms</span>
+        </div>
+      </footer>
     </>
   );
 }

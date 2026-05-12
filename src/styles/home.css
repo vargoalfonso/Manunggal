@@ -4,7 +4,7 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 #root {
-  width: 100%;
+  width: 100vw; /* Or 100% */
   margin: 0;
 }
 body {
@@ -284,23 +284,11 @@ p {
   padding: 80px 100px;
   background: #f7f9fc;
   text-align: center;
-  scroll-margin-top: 90px;
 }
 
 .aset h1 {
   font-size: 44px;
   color: #0a7cff;
-  font-variant-numeric: tabular-nums;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .hero-img,
-  .service-card,
-  .product-card,
-  .product-image-card,
-  .burger span{
-    transition: none !important;
-  }
 }
 
 .aset p {

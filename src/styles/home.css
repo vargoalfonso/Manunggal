@@ -201,7 +201,10 @@ p {
   overflow: hidden;
   width: 100%;
 }
-
+.tag {
+  font-size: 16px;
+  font-weight: bold;
+}
 .hero-img {
   width: 100%;
   height: 100%;
@@ -324,6 +327,7 @@ p {
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -358,12 +362,14 @@ p {
 }
 
 .titleesg{
-    font-size: 14px;
+    font-size: 16px;
     color: #0a7cff;
     font-weight: bold;
 }
 .captionesg{
-    font-size: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
 }
 
 .esg-container {
@@ -458,7 +464,7 @@ p {
   height: 80px;
   background: #0a7cff;
   transition: top 0.3s ease;
-  margin-top: 250px;
+  /* margin-top: 250px; */
 }
 .esg-item {
   padding: 20px 0;
@@ -487,6 +493,30 @@ p {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 40px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.footer-links li:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.footer-brand h2 {
+  cursor: pointer;
+}
+
+.footer-contact p:last-child {
+  cursor: pointer;
 }
 .footer-bottom {
   margin-top: 40px;
@@ -600,7 +630,9 @@ p {
 
   .hero-content .tag {
     font-size: 12px;
+   
   }
+  
 
   /* EXPERIENCE */
   .experience {

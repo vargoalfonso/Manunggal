@@ -122,6 +122,20 @@ const productCards = [
   },
 ];
 
+const footerProductLinks = [
+  { label: "Roll Film", path: "/produk" },
+  { label: "Standing Pouch", path: "/produk" },
+  { label: "Kemasan Beras", path: "/produk" },
+  { label: "Vacuum Bag", path: "/produk" },
+];
+
+const footerCompanyLinks = [
+  { label: "Tentang Kami", path: "/about" },
+  { label: "Layanan Produksi", path: "/service" },
+  { label: "Kontrol Kualitas", path: "/service" },
+  { label: "Hubungi Kami", path: "/contact" },
+];
+
 export default function Product() {
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState("id");
@@ -134,6 +148,10 @@ export default function Product() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
   return (
     <>
@@ -161,10 +179,10 @@ export default function Product() {
           Manunggal
         </p>
         <ul>
-          <li onClick={() => navigate("/produk")}>{t.produk}</li>
-          <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/service")}>{t.layanan}</li>
-          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
+          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
       <section className="product-page">
@@ -260,19 +278,22 @@ export default function Product() {
           <div className="footer-links">
             <h4>Produk</h4>
             <ul>
-              <li>Roll Film</li>
-              <li>Standing Pouch</li>
-              <li>Kemasan Beras</li>
-              <li>Vacuum Bag</li>
+              {footerProductLinks.map((item) => (
+                <li key={item.label} onClick={() => handleNavigate(item.path)}>
+                  {item.label}
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="footer-links">
             <h4>Perusahaan</h4>
             <ul>
-              <li>Tentang Kami</li>
-              <li>Layanan Produksi</li>
-              <li>Kontrol Kualitas</li>
+              {footerCompanyLinks.map((item) => (
+                <li key={item.label} onClick={() => handleNavigate(item.path)}>
+                  {item.label}
+                </li>
+              ))}
             </ul>
           </div>
 

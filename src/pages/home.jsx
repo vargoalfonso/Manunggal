@@ -11,7 +11,6 @@ import Product4 from "../assets/kemasan sealer.jpeg";
 import Product5 from "../assets/kemasan vakum.jpeg";
 import Product6 from "../assets/proses .jpeg";
 
-
 /* ===================== TRANSLATIONS ===================== */
 const translations = {
   id: {
@@ -92,6 +91,20 @@ const esgItems = [
     img: Product6,
   },
 ];
+
+const footerProductLinks = [
+  { label: "Roll Film", path: "/produk" },
+  { label: "Standing Pouch", path: "/produk" },
+  { label: "Kemasan Beras", path: "/produk" },
+  { label: "Vacuum Bag", path: "/produk" },
+];
+
+const footerCompanyLinks = [
+  { label: "Tentang Kami", path: "/about" },
+  { label: "Layanan Produksi", path: "/service" },
+  { label: "Kontrol Kualitas", path: "/service" },
+  { label: "Hubungi Kami", path: "/contact" },
+];
 /* ===================== COMPONENT ===================== */
 function Home() {
   const navigate = useNavigate();
@@ -140,6 +153,12 @@ function Home() {
       setFade(false);
     }, 300);
   };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
+
   return (
     <>
       {/* ================= LANGUAGE BAR ================= */}
@@ -167,10 +186,10 @@ function Home() {
 
         {/* DESKTOP MENU */}
         <ul className="nav-links">
-          <li onClick={() => navigate("/produk")}>{t.produk}</li>
-          <li onClick={() => navigate("/about")}>{t.tentang}</li>
-          <li onClick={() => navigate("/service")}>{t.layanan}</li>
-          <li onClick={() => navigate("/contact")}>{t.hubungi}</li>
+          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
 
         {/* BURGER */}
@@ -189,32 +208,28 @@ function Home() {
         <ul>
           <li
             onClick={() => {
-              navigate("/produk");
-              setMenuOpen(false);
+              handleNavigate("/produk");
             }}
           >
             {t.produk}
           </li>
           <li
             onClick={() => {
-              navigate("/about");
-              setMenuOpen(false);
+              handleNavigate("/about");
             }}
           >
             {t.tentang}
           </li>
           <li
             onClick={() => {
-              navigate("/service");
-              setMenuOpen(false);
+              handleNavigate("/service");
             }}
           >
             {t.layanan}
           </li>
           <li
             onClick={() => {
-              navigate("/contact");
-              setMenuOpen(false);
+              handleNavigate("/contact");
             }}
           >
             {t.hubungi}
@@ -231,7 +246,7 @@ function Home() {
         />
 
         <div className="hero-content">
-          <span className="tag">{t.tag}</span>
+          <p className="tag">{t.tag}</p>
           <h1>{t.heroTitle}</h1>
           <p>{t.heroDesc}</p>
 
@@ -268,12 +283,20 @@ function Home() {
         </h1>
         <div className="prod-card">
           {cards.map((card, i) => (
-            <div className="card" key={i}>
+            <div className="card" key={i} onClick={() => handleNavigate("/produk")}>
               <img src={card.img} className="card-img" alt="" />
               <div className="card-body">
                 <h3>{card.title}</h3>
                 <p>{card.text}</p>
-                <p className="learnmore">Pelajari solusi kemasannya ›</p>
+                <p
+                  className="learnmore"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleNavigate("/produk");
+                  }}
+                >
+                  Pelajari solusi kemasannya ›
+                </p>
               </div>
             </div>
           ))}
@@ -285,14 +308,16 @@ function Home() {
         <div className="esg-list">
           <div className="esg-title">
             <p className="titleesg">{t.esgTitle}</p>
-            <p className="captionesg">
-              {t.esgDesc}
-            </p>
+            <p className="captionesg">{t.esgDesc}</p>
           </div>
-          <div className="indicator" style={{ top: current * 110 + "px" }} />
+          <div
+            className="indicator"
+            style={{ top: indicatorTop + 0 + "px" }}
+          />
           {esgItems.map((item, i) => (
             <div
               key={i}
+              ref={(el) => (itemRefs.current[i] = el)}
               className={`esg-item ${current === i ? "active" : ""}`}
               onMouseEnter={() => changeESG(i)}
             >
@@ -335,19 +360,22 @@ function Home() {
           <div className="footer-links">
             <h4>Produk</h4>
             <ul>
-              <li>Roll Film</li>
-              <li>Standing Pouch</li>
-              <li>Kemasan Beras</li>
-              <li>Vacuum Bag</li>
+              {footerProductLinks.map((item) => (
+                <li key={item.label} onClick={() => handleNavigate(item.path)}>
+                  {item.label}
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="footer-links">
             <h4>Perusahaan</h4>
             <ul>
-              <li>Tentang Kami</li>
-              <li>Layanan Produksi</li>
-              <li>Kontrol Kualitas</li>
+              {footerCompanyLinks.map((item) => (
+                <li key={item.label} onClick={() => handleNavigate(item.path)}>
+                  {item.label}
+                </li>
+              ))}
             </ul>
           </div>
 

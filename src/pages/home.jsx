@@ -10,6 +10,7 @@ import Product3 from "../assets/kemasan masker.jpeg";
 import Product4 from "../assets/kemasan sealer.jpeg";
 import Product5 from "../assets/kemasan vakum.jpeg";
 import Product6 from "../assets/proses .jpeg";
+import logo from "../assets/logo.png";
 
 /* ===================== TRANSLATIONS ===================== */
 const translations = {
@@ -182,7 +183,13 @@ function Home() {
 
       {/* ================= NAVBAR ================= */}
       <div className={`navbar ${scrolled ? "scrolled" : ""}`}>
-        <h1 onClick={() => navigate("/")}>Manunggal</h1>
+        
+        <img 
+                 src={logo}
+                 alt="Manunggal"
+                 className="nav-logo"
+                 onClick={() => navigate("/")}
+               />
 
         {/* DESKTOP MENU */}
         <ul className="nav-links">

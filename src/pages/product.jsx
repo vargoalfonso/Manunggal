@@ -7,6 +7,7 @@ import maskPackaging from "../assets/kemasan masker.jpeg";
 import sealerPackaging from "../assets/kemasan sealer.jpeg";
 import vacuumPackaging from "../assets/kemasan vakum.jpeg";
 import processPackaging from "../assets/proses .jpeg";
+import logo from "../assets/logo.png";
 const translations = {
   id: {
     produk: "Produk",
@@ -175,9 +176,13 @@ export default function Product() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-        <p className="titlenav" onClick={() => navigate("/")}>
-          Manunggal
-        </p>
+         <img
+                          src={logo}
+                          alt="Manunggal"
+                          className="nav-logo"
+                          onClick={() => navigate("/")}
+                        />
+        
         <ul>
           <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
           <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>

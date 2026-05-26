@@ -1,7 +1,8 @@
 import "../styles/contact.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import contactImage from "../assets/semuajeniskemasan.jpeg";
+import contactImage from "../assets/maskotcall.png";
+import logo from "../assets/logo.png";
 
 const translations = {
   id: {
@@ -12,7 +13,7 @@ const translations = {
   },
   en: {
     produk: "Products",
-    tentang: "About MPK",
+
     layanan: "Our Services",
     hubungi: "Contact Us",
   },
@@ -73,9 +74,12 @@ function ContactUs() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-        <p className="titlenav" onClick={() => navigate("/")}>
-          Manunggal
-        </p>
+        <img
+          src={logo}
+          alt="Manunggal"
+          className="nav-logo"
+          onClick={() => navigate("/")}
+        />
         <ul>
           <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
           <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
@@ -140,7 +144,7 @@ function ContactUs() {
       <footer className="footer-dark">
         <div className="footer-container">
           <div className="footer-brand">
-            <h2>Manunggal</h2>
+            <img src={logo} alt="Manunggal" className="footer-logo" />
             <p>Flexible Packaging & Plastic Solutions</p>
 
             <iframe

@@ -1,6 +1,7 @@
 import "../styles/services.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import logo from "../assets/logo.png";
 const translations = {
   id: {
     produk: "Produk",
@@ -101,7 +102,13 @@ export default function Services() {
 
       {/* ================= NAVBAR ================= */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-       <p className="titlenav"onClick={() => navigate("/")}>Manunggal</p>
+       <img
+                        src={logo}
+                        alt="Manunggal"
+                        className="nav-logo"
+                        onClick={() => navigate("/")}
+                      />
+      
         <ul>
             <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
           <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>

@@ -2,6 +2,7 @@ import "../styles/about.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import processImage from "../assets/proses .jpeg";
+import logo from "../assets/logo.png";
 
 const translations = {
   id: {
@@ -100,9 +101,12 @@ function About() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-        <p className="titlenav" onClick={() => navigate("/")}>
-          Manunggal
-        </p>
+         <img
+                  src={logo}
+                  alt="Manunggal"
+                  className="nav-logo"
+                  onClick={() => navigate("/")}
+                />
 
         <ul>
           <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>

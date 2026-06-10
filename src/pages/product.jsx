@@ -10,105 +10,19 @@ import vacuumPackaging from "../assets/kemasan vakum.jpeg";
 import processPackaging from "../assets/proses .jpeg";
 import logo from "../assets/logo.png";
 import { productPageTranslations as translations } from "../i18n/translations";
-const products = [
-  {
-    title: "Roll Film Printing",
-    image: allPackaging,
-    desc: "Kemasan roll printing untuk mesin otomatis dengan hasil cetak stabil, efisien untuk produksi massal, dan fleksibel menyesuaikan karakter produk.",
-    features: [
-      "Cocok untuk snack, kopi, gula, bumbu, dan kebutuhan retail modern",
-      "Pilihan material PET, OPP, CPP, PE, dan kombinasi multilayer",
-      "Desain cetak custom untuk identitas brand dan informasi produk",
-      "Ideal untuk mesin filling otomatis dengan volume produksi menengah hingga besar",
-    ],
-  },
-  {
-    title: "Standing Pouch & Center Seal",
-    image: maskPackaging,
-    desc: "Kemasan pouch yang praktis dan menarik untuk display rak, cocok untuk produk konsumsi harian yang membutuhkan tampilan profesional dan perlindungan optimal.",
-    features: [
-      "Model standing pouch, three side seal, center seal, dan bentuk custom",
-      "Tersedia opsi zipper, euro hole, window, serta finishing glossy atau doff",
-      "Membantu melindungi produk dari udara, kelembapan, dan kontaminasi ringan",
-      "Sangat cocok untuk makanan ringan, masker, kopi, bubuk minuman, dan produk retail",
-    ],
-  },
-  {
-    title: "Kemasan Beras & Karung Laminasi",
-    image: ricePackaging,
-    desc: "Kemasan beras dan karung laminasi yang dirancang kuat untuk distribusi, penyimpanan, dan branding produk kebutuhan pokok di pasar retail maupun grosir.",
-    features: [
-      "Ukuran, ketebalan, dan model handle dapat disesuaikan",
-      "Cocok untuk beras, gula, tepung, pakan, dan bahan kebutuhan pokok lain",
-      "Sambungan rapi, kuat, dan tahan untuk kebutuhan distribusi",
-      "Memberikan ruang informasi produk dan branding yang lebih jelas",
-    ],
-  },
-  {
-    title: "Sealer Bag",
-    image: sealerPackaging,
-    desc: "Sealer bag untuk pengemasan praktis yang membantu menjaga kerapian, keamanan isi, dan tampilan produk sebelum masuk ke pasar.",
-    features: [
-      "Cocok untuk bumbu, makanan kering, komponen retail, dan produk harian",
-      "Ukuran dan ketebalan dapat disiapkan sesuai kebutuhan filling",
-      "Mudah dipadukan dengan mesin sealer manual maupun semi otomatis",
-      "Membantu kemasan tampil lebih rapi, bersih, dan profesional",
-    ],
-  },
-  {
-    title: "Vacuum Bag",
-    image: vacuumPackaging,
-    desc: "Kemasan vacuum bag untuk membantu menjaga kesegaran produk lebih lama, mengurangi udara di dalam kemasan, dan meningkatkan higienitas produk.",
-    features: [
-      "Cocok untuk frozen food, daging, seafood, bumbu, dan produk olahan",
-      "Material food grade yang aman untuk kebutuhan pengemasan pangan",
-      "Tersedia berbagai ukuran, ketebalan, dan spesifikasi seal strength",
-      "Mendukung tampilan produk yang bersih, padat, dan siap distribusi",
-    ],
-  },
-  {
-    title: "Proses Produksi & Konversi",
-    image: processPackaging,
-    desc: "Tahap proses produksi kami memastikan setiap kemasan melewati alur cetak, laminasi, pemotongan, dan finishing yang terkontrol sebelum dikirim ke pelanggan.",
-    features: [
-      "Proses kerja rapi untuk menjaga konsistensi hasil cetak dan ukuran",
-      "Pemeriksaan kualitas dilakukan pada material, warna, dan kekuatan seal",
-      "Mendukung repeat order dengan spesifikasi yang lebih stabil",
-      "Cocok untuk brand yang membutuhkan suplai kemasan berkelanjutan",
-    ],
-  },
-];
+import { productItemsTranslations as productItems } from "../i18n/translations";
+
+const products = (() => {
+  const langItems = productItems;
+  return (langItems && langItems.id) ? langItems : [];
+})();
 const productCards = [
-  {
-    title: "Semua Jenis Kemasan",
-    short: "Pilihan roll, pouch, vacuum, dan karung untuk berbagai kategori produk retail maupun industri.",
-    image: allPackaging,
-  },
-  {
-    title: "Kemasan Beras",
-    short: "Kemasan kuat untuk beras dan kebutuhan pokok dengan area cetak yang informatif.",
-    image: ricePackaging,
-  },
-  {
-    title: "Kemasan Masker & Retail",
-    short: "Kemasan praktis untuk produk kesehatan, retail, dan kebutuhan display rak.",
-    image: maskPackaging,
-  },
-  {
-    title: "Kemasan Sealer",
-    short: "Kemasan praktis untuk menjaga kerapian isi, keamanan, dan kemudahan sealing.",
-    image: sealerPackaging,
-  },
-  {
-    title: "Kemasan Vakum",
-    short: "Solusi food grade untuk membantu memperpanjang kesegaran dan shelf life produk.",
-    image: vacuumPackaging,
-  },
-  {
-    title: "Proses Produksi",
-    short: "Tahapan cetak, laminasi, dan finishing yang mendukung hasil kemasan lebih konsisten.",
-    image: processPackaging,
-  },
+  { image: allPackaging },
+  { image: ricePackaging },
+  { image: maskPackaging },
+  { image: sealerPackaging },
+  { image: vacuumPackaging },
+  { image: processPackaging },
 ];
 
 const footerProductLinks = [
@@ -131,6 +45,7 @@ export default function Product() {
   const navigate = useNavigate();
   const location = useLocation();
   const t = translations[lang];
+  const items = productItems[lang] || productItems['id'];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -195,15 +110,15 @@ export default function Product() {
           <p className="section-desc">{t.listDesc}</p>
 
           <div className="product-card-grid">
-            {productCards.map((item, index) => (
+            {productCards.map((card, index) => (
               <div className="product-image-card" key={index}>
                 <div className="product-image-wrapper">
-                  <img src={item.image} alt={item.title} />
+                  <img src={card.image} alt={items.cards[index].title} />
                 </div>
 
                 <div className="product-card-content">
-                  <h3>{item.title}</h3>
-                  <p>{item.short}</p>
+                  <h3>{items.cards[index].title}</h3>
+                  <p>{items.cards[index].short}</p>
                 </div>
               </div>
             ))}
@@ -212,10 +127,10 @@ export default function Product() {
         <h1 className="listservice">{t.specsTitle}</h1>
         <div className="product-list">
           
-          {products.map((item, index) => (
+          {items.specs.map((item, index) => (
             <div className="product-card" key={index}>
               <div className="product-card-thumb">
-                <img src={item.image} alt={item.title} />
+                <img src={[allPackaging, maskPackaging, ricePackaging, sealerPackaging, vacuumPackaging, processPackaging][index]} alt={item.title} />
               </div>
               <h2>{item.title}</h2>
               <p className="product-desc">{item.desc}</p>

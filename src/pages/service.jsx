@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useLanguage } from "../i18n/useLanguage";
 import logo from "../assets/logo.png";
-import { servicesPageTranslations as translations } from "../i18n/translations";
+import { servicesPageTranslations as translations, servicesListTranslations } from "../i18n/translations";
 
 const services = [
   {
@@ -57,7 +57,8 @@ export default function Services() {
       const { lang, setLang } = useLanguage();
       const [scrolled, setScrolled] = React.useState(false);
       const location = useLocation();
-      const t = translations[lang];
+      const t = translations[lang] || translations.id;
+      const list = servicesListTranslations[lang] || servicesListTranslations.id;
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll);
@@ -117,7 +118,7 @@ export default function Services() {
       </div>
 
       <div className="services-grid">
-        {services.map((item, index) => (
+        {list.services.map((item, index) => (
           <div className="service-card" key={index}>
             <h3>{item.title}</h3>
             <p>{item.desc}</p>

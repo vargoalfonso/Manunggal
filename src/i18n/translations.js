@@ -281,6 +281,155 @@ export const productPageTranslations = {
   },
 };
 
+// detailed product items and specs
+export const productItemsTranslations = {
+  id: {
+    cards: [
+      { title: "Semua Jenis Kemasan", short: "Pilihan roll, pouch, vacuum, dan karung untuk berbagai kategori produk retail maupun industri." },
+      { title: "Kemasan Beras", short: "Kemasan kuat untuk beras dan kebutuhan pokok dengan area cetak yang informatif." },
+      { title: "Kemasan Masker & Retail", short: "Kemasan praktis untuk produk kesehatan, retail, dan kebutuhan display rak." },
+      { title: "Kemasan Sealer", short: "Kemasan praktis untuk menjaga kerapian isi, keamanan, dan kemudahan sealing." },
+      { title: "Kemasan Vakum", short: "Solusi food grade untuk membantu memperpanjang kesegaran dan shelf life produk." },
+      { title: "Proses Produksi", short: "Tahapan cetak, laminasi, dan finishing yang mendukung hasil kemasan lebih konsisten." },
+    ],
+    specs: [
+      {
+        title: "Roll Film Printing",
+        desc: "Kemasan roll printing untuk mesin otomatis dengan hasil cetak stabil, efisien untuk produksi massal, dan fleksibel menyesuaikan karakter produk.",
+        features: [
+          "Cocok untuk snack, kopi, gula, bumbu, dan kebutuhan retail modern",
+          "Pilihan material PET, OPP, CPP, PE, dan kombinasi multilayer",
+          "Desain cetak custom untuk identitas brand dan informasi produk",
+          "Ideal untuk mesin filling otomatis dengan volume produksi menengah hingga besar",
+        ],
+      },
+      {
+        title: "Standing Pouch & Center Seal",
+        desc: "Kemasan pouch yang praktis dan menarik untuk display rak, cocok untuk produk konsumsi harian yang membutuhkan tampilan profesional dan perlindungan optimal.",
+        features: [
+          "Model standing pouch, three side seal, center seal, dan bentuk custom",
+          "Tersedia opsi zipper, euro hole, window, serta finishing glossy atau doff",
+          "Membantu melindungi produk dari udara, kelembapan, dan kontaminasi ringan",
+          "Sangat cocok untuk makanan ringan, masker, kopi, bubuk minuman, dan produk retail",
+        ],
+      },
+      {
+        title: "Kemasan Beras & Karung Laminasi",
+        desc: "Kemasan beras dan karung laminasi yang dirancang kuat untuk distribusi, penyimpanan, dan branding produk kebutuhan pokok di pasar retail maupun grosir.",
+        features: [
+          "Ukuran, ketebalan, dan model handle dapat disesuaikan",
+          "Cocok untuk beras, gula, tepung, pakan, dan bahan kebutuhan pokok lain",
+          "Sambungan rapi, kuat, dan tahan untuk kebutuhan distribusi",
+          "Memberikan ruang informasi produk dan branding yang lebih jelas",
+        ],
+      },
+      {
+        title: "Sealer Bag",
+        desc: "Sealer bag untuk pengemasan praktis yang membantu menjaga kerapian, keamanan isi, dan tampilan produk sebelum masuk ke pasar.",
+        features: [
+          "Cocok untuk bumbu, makanan kering, komponen retail, dan produk harian",
+          "Ukuran dan ketebalan dapat disesuaikan sesuai kebutuhan filling",
+          "Mudah dipadukan dengan mesin sealer manual maupun semi otomatis",
+          "Membantu kemasan tampil lebih rapi, bersih, dan profesional",
+        ],
+      },
+      {
+        title: "Vacuum Bag",
+        desc: "Kemasan vacuum bag untuk membantu menjaga kesegaran produk lebih lama, mengurangi udara di dalam kemasan, dan meningkatkan higienitas produk.",
+        features: [
+          "Cocok untuk frozen food, daging, seafood, bumbu, dan produk olahan",
+          "Material food grade yang aman untuk kebutuhan pengemasan pangan",
+          "Tersedia berbagai ukuran, ketebalan, dan spesifikasi seal strength",
+          "Mendukung tampilan produk yang bersih, padat, dan siap distribusi",
+        ],
+      },
+      {
+        title: "Proses Produksi & Konversi",
+        desc: "Tahap proses produksi kami memastikan setiap kemasan melewati alur cetak, laminasi, pemotongan, dan finishing yang terkontrol sebelum dikirim ke pelanggan.",
+        features: [
+          "Proses kerja rapi untuk menjaga konsistensi hasil cetak dan ukuran",
+          "Pemeriksaan kualitas dilakukan pada material, warna, dan kekuatan seal",
+          "Mendukung repeat order dengan spesifikasi yang lebih stabil",
+          "Cocok untuk brand yang membutuhkan suplai kemasan berkelanjutan",
+        ],
+      },
+    ],
+  },
+  en: {
+    cards: [
+      { title: "All Packaging Types", short: "Rolls, pouches, vacuum bags, and sacks for various retail and industrial product categories." },
+      { title: "Rice Packaging", short: "Durable rice packaging with informative print area." },
+      { title: "Mask & Retail Packaging", short: "Practical packaging for health products, retail, and shelf display needs." },
+      { title: "Sealer Packaging", short: "Practical packaging to keep contents tidy, secure, and easy to seal." },
+      { title: "Vacuum Packaging", short: "Food-grade solution to help extend freshness and shelf life." },
+      { title: "Production Process", short: "Printing, lamination, and finishing stages that support more consistent packaging results." },
+    ],
+    specs: [
+      {
+        title: "Roll Film Printing",
+        desc: "Roll printing for automatic machines with stable print output, efficient for mass production, and flexible to product characteristics.",
+        features: [
+          "Suitable for snacks, coffee, sugar, spices, and modern retail needs",
+          "Material options: PET, OPP, CPP, PE, and multilayer combinations",
+          "Custom print design for brand identity and product information",
+          "Ideal for automatic filling machines with mid-to-high production volumes",
+        ],
+      },
+      {
+        title: "Standing Pouch & Center Seal",
+        desc: "Practical and attractive pouch packaging for shelf display, suitable for daily consumer products that need professional appearance and optimal protection.",
+        features: [
+          "Standing pouch, three-side seal, center seal, and custom shapes",
+          "Available zipper, euro hole, window, and glossy or matte finishing",
+          "Helps protect products from air, moisture, and light contamination",
+          "Great for snacks, masks, coffee, powdered drinks, and retail items",
+        ],
+      },
+      {
+        title: "Rice Packaging & Laminated Sacks",
+        desc: "Rice packaging and laminated sacks designed strong for distribution, storage, and product branding in retail and wholesale markets.",
+        features: [
+          "Size, thickness, and handle models can be customized",
+          "Suitable for rice, sugar, flour, feed, and other staple goods",
+          "Neat, strong joints for distribution needs",
+          "Provides more space for product information and branding",
+        ],
+      },
+      {
+        title: "Sealer Bag",
+        desc: "Sealer bags for practical packaging that help keep contents tidy, secure, and presentable before market release.",
+        features: [
+          "Suitable for spices, dry food, retail components, and daily products",
+          "Sizes and thickness can be prepared according to filling needs",
+          "Easily integrated with manual or semi-automatic sealing machines",
+          "Helps packaging appear neater, cleaner, and more professional",
+        ],
+      },
+      {
+        title: "Vacuum Bag",
+        desc: "Vacuum bags help preserve product freshness longer, reduce air inside packaging, and improve product hygiene.",
+        features: [
+          "Suitable for frozen food, meat, seafood, spices, and processed products",
+          "Food-grade materials safe for food packaging needs",
+          "Available in various sizes, thicknesses, and seal strength specifications",
+          "Supports a clean, compact, and distribution-ready product appearance",
+        ],
+      },
+      {
+        title: "Production Process & Conversion",
+        desc: "Our production stages ensure each packaging goes through controlled printing, lamination, cutting, and finishing before dispatch.",
+        features: [
+          "Tidy workflows to maintain print and size consistency",
+          "Quality checks on material, color, and seal strength",
+          "Supports repeat orders with more stable specifications",
+          "Suitable for brands requiring ongoing packaging supply",
+        ],
+      },
+    ],
+  },
+};
+
+
 export const serviceTranslations = {
   id: {
     produk: "Produk",
@@ -298,6 +447,7 @@ export const serviceTranslations = {
 
 export const servicesPageTranslations = {
   id: {
+    productionTitle: "Layanan Produksi untuk Mendukung Kebutuhan Kemasan Anda",
     produk: "Produk",
     tentang: "Tentang MPK",
     layanan: "Layanan Kami",
@@ -317,7 +467,21 @@ export const servicesPageTranslations = {
     ],
   },
   en: {
+    productionTitle: "Production Services to Support Your Packaging Needs",
     produk: "Products",
+      specs: [
+        {
+          title: "Roll Film Printing",
+          desc: "Kemasan roll printing untuk mesin otomatis dengan hasil cetak stabil, efisien untuk produksi massal, dan fleksibel menyesuaikan karakter produk.",
+          features: [
+            "Cocok untuk snack, kopi, gula, bumbu, dan kebutuhan retail modern",
+            "Pilihan material PET, OPP, CPP, PE, dan kombinasi multilayer",
+            "Desain cetak custom untuk identitas brand dan informasi produk",
+            "Ideal untuk mesin filling otomatis dengan volume produksi menengah hingga besar",
+          ],
+        },
+        // Additional specs can be added here
+      ],
     tentang: "About MPK",
     layanan: "Our Services",
     hubungi: "Contact Us",
@@ -328,6 +492,19 @@ export const servicesPageTranslations = {
     whyTitle: "Why Choose Us?",
     whyText:
       "With production experience, quality control, and flexible execution, we are ready to be a long-term partner for your brand's packaging needs from development to repeat orders.",
+      specs: [
+        {
+          title: "Roll Film Printing",
+          desc: "Roll printing for automatic machines with stable print output, efficient for mass production, and flexible to product characteristics.",
+          features: [
+            "Suitable for snacks, coffee, sugar, spices, and modern retail needs",
+            "Material options: PET, OPP, CPP, PE, and multilayer combinations",
+            "Custom print design for brand identity and product information",
+            "Ideal for automatic filling machines with mid-to-high production volumes",
+          ],
+        },
+        // Additional specs can be added here
+      ],
     whyList: [
       "Materials, sizes, and packaging models can be customized",
       "Tidy production process with more scheduled workflow",
@@ -336,6 +513,34 @@ export const servicesPageTranslations = {
     ],
   },
 };
+
+// services list translations
+export const servicesListTranslations = {
+  id: {
+    services: [
+      {
+        title: "Konsultasi Kemasan",
+        desc: "Pendampingan untuk menentukan bentuk kemasan, ukuran, struktur material, dan finishing yang sesuai dengan karakter produk dan target pasar Anda.",
+      },
+      { title: "Desain & Persiapan Artwork", desc: "Membantu menyiapkan desain kemasan agar siap cetak, informatif, dan tetap tampil kuat saat dipasarkan di rak penjualan." },
+      { title: "Printing Kemasan", desc: "Proses cetak kemasan dengan kontrol warna yang lebih stabil untuk kebutuhan retail, distribusi, dan industri." },
+      { title: "Laminasi & Konversi", desc: "Layanan laminasi multi-layer dan pembentukan kemasan roll, pouch, sealer bag, maupun vacuum bag sesuai spesifikasi produksi." },
+      { title: "Quality Control Produk", desc: "Pengecekan kualitas material, hasil cetak, presisi ukuran, serta kekuatan seal untuk menjaga standar produksi tetap konsisten." },
+      { title: "Pengiriman & Repeat Order", desc: "Penjadwalan produksi dan pengiriman yang membantu suplai kemasan tetap aman, terencana, dan siap untuk repeat order berikutnya." },
+    ],
+  },
+  en: {
+    services: [
+      { title: "Packaging Consultation", desc: "Assistance to determine packaging shape, size, material structure, and finishing suitable for your product and target market." },
+      { title: "Design & Artwork Preparation", desc: "Help preparing packaging designs to be print-ready, informative, and visually strong on shelves." },
+      { title: "Packaging Printing", desc: "Packaging printing process with stable color control for retail, distribution, and industrial needs." },
+      { title: "Lamination & Conversion", desc: "Multi-layer lamination and forming into rolls, pouches, sealer bags, or vacuum bags according to production specifications." },
+      { title: "Product Quality Control", desc: "Checking material quality, print results, dimensional precision, and seal strength to maintain consistent production standards." },
+      { title: "Shipping & Repeat Orders", desc: "Production and shipping scheduling that helps keep your packaging supply secure, planned, and ready for repeat orders." },
+    ],
+  },
+};
+
 
 export const contactPageTranslations = {
   id: {

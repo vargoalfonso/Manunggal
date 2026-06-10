@@ -1,48 +1,10 @@
 import "../styles/about.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 import processImage from "../assets/proses .jpeg";
 import logo from "../assets/logo.png";
-
-const translations = {
-  id: {
-    produk: "Produk",
-    tentang: "Tentang MPK",
-    layanan: "Layanan Kami",
-    hubungi: "Hubungi Kami",
-
-    missionTitle: "Misi Kami",
-    missionText:
-      "Kami siap menjawab kebutuhan pasar dalam kualitas, standar, dan produk terbaik.",
-
-    visionTitle: "Visi Kami",
-    visionText:
-      "Menjadi solusi terbaik dalam menciptakan kemasan plastik yang berkualitas dan terpercaya.",
-
-    goalsTitle: "Tujuan Kami",
-    goalsText:
-      "Kepuasan pelanggan adalah prioritas utama kami.",
-  },
-
-  en: {
-    produk: "Products",
-    tentang: "About MPK",
-    layanan: "Our Services",
-    hubungi: "Contact Us",
-
-    missionTitle: "Our Mission",
-    missionText:
-      "We are ready to answer market demand in quality, standards and products.",
-
-    visionTitle: "Our Vision",
-    visionText:
-      "To be the best solution in creating quality and reliable plastic packaging.",
-
-    goalsTitle: "Our Goals",
-    goalsText:
-      "Customer satisfaction is our priority.",
-  },
-};
+import { aboutTranslations as translations } from "../i18n/translations";
 
 const footerProductLinks = [
   { label: "Roll Film", path: "/produk" },
@@ -59,9 +21,10 @@ const footerCompanyLinks = [
 ];
 
 function About() {
-  const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState("id");
+  const [scrolled, setScrolled] = React.useState(false);
+  const { lang, setLang } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const t = translations[lang];
 
@@ -81,19 +44,9 @@ function About() {
       {/* TOP BAR */}
       <div className="language-selector">
         <ul>
-          <li
-            onClick={() => setLang("en")}
-            className={lang === "en" ? "active-lang" : ""}
-          >
-            🇬🇧 English
-          </li>
+          <li onClick={() => setLang("en")} className={lang === "en" ? "active-lang" : ""}>🇬🇧 English</li>
 
-          <li
-            onClick={() => setLang("id")}
-            className={lang === "id" ? "active-lang" : ""}
-          >
-            🇮🇩 Indonesia
-          </li>
+          <li onClick={() => setLang("id")} className={lang === "id" ? "active-lang" : ""}>🇮🇩 Indonesia</li>
 
           <li>Call us +62</li>
         </ul>
@@ -101,18 +54,23 @@ function About() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-         <img
-                  src={logo}
-                  alt="Manunggal"
-                  className="nav-logo"
-                  onClick={() => navigate("/")}
-                />
+       <div className="nav-brand" onClick={() => navigate("/")}> 
+                         <img
+                           src={logo}
+                           alt="Manunggal"
+                           className="nav-logo"
+                            onClick={() => navigate("/")}
+                         />
+                         <div className="nav-brand-text">
+                           <h2>Manunggal Prima Kemasindo</h2>
+                         </div>
+                       </div>
 
         <ul>
-          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
-          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
-          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
-          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
+          <li className={location.pathname.startsWith('/produk') ? 'active-link' : ''} onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li className={location.pathname.startsWith('/about') ? 'active-link' : ''} onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li className={location.pathname.startsWith('/service') ? 'active-link' : ''} onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li className={location.pathname.startsWith('/contact') ? 'active-link' : ''} onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
 
@@ -122,55 +80,26 @@ function About() {
 
         <div className="about-grid">
           <div className="about-text">
-            <h1>
-              Mitra Strategis untuk{" "}
-              <span>Kemasan Fleksibel dan Plastik Berkualitas</span>
-            </h1>
+              <h1>{t.hero.title}</h1>
 
-            <p>
-              Manunggal Packaging berfokus pada produksi kemasan plastik yang
-              fungsional, aman, dan menarik secara visual. Kami membantu brand
-              dan pelaku industri menghadirkan kemasan yang siap jual melalui
-              proses produksi yang rapi, adaptif, dan konsisten.
-            </p>
+              <p>{t.hero.p1}</p>
 
-            <p>
-              Dari kebutuhan kemasan retail skala menengah hingga suplai untuk
-              industri, kami menyesuaikan material, ukuran, model, serta hasil
-              cetak agar kemasan tidak hanya melindungi produk, tetapi juga
-              memperkuat nilai jualnya.
-            </p>
+              <p>{t.hero.p2}</p>
 
-            <ul>
-              <li>
-                Spesialis kemasan roll, pouch, karung, sealer, dan vacuum bag
-              </li>
-              <li>
-                Dukungan desain, pemilihan material, dan finishing sesuai
-                kebutuhan produk
-              </li>
-              <li>
-                Didukung tim produksi berpengalaman dengan quality control yang
-                terjaga
-              </li>
-            </ul>
+              <ul>
+                {t.hero.list.map((li, i) => (
+                  <li key={i}>{li}</li>
+                ))}
+              </ul>
 
-            <div className="stats">
-              <div className="stat-card">
-                <h3>15+</h3>
-                <p>Tahun Pengalaman</p>
+              <div className="stats">
+                {t.hero.stats.map((s, i) => (
+                  <div className="stat-card" key={i}>
+                    <h3>{s.value}</h3>
+                    <p>{s.label}</p>
+                  </div>
+                ))}
               </div>
-
-              <div className="stat-card">
-                <h3>120+</h3>
-                <p>Varian Kemasan</p>
-              </div>
-
-              <div className="stat-card">
-                <h3>98%</h3>
-                <p>Repeat Order</p>
-              </div>
-            </div>
           </div>
 
           <div className="about-image">

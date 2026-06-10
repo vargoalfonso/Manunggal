@@ -1,23 +1,10 @@
 import "../styles/contact.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 import contactImage from "../assets/maskotcall.png";
 import logo from "../assets/logo.png";
-
-const translations = {
-  id: {
-    produk: "Produk",
-    tentang: "Tentang MPK",
-    layanan: "Layanan Kami",
-    hubungi: "Hubungi Kami",
-  },
-  en: {
-    produk: "Products",
-
-    layanan: "Our Services",
-    hubungi: "Contact Us",
-  },
-};
+import { contactPageTranslations as translations } from "../i18n/translations";
 
 const footerProductLinks = [
   { label: "Roll Film", path: "/produk" },
@@ -35,8 +22,9 @@ const footerCompanyLinks = [
 
 function ContactUs() {
   const navigate = useNavigate();
-  const [lang, setLang] = useState("id");
-  const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang } = useLanguage();
+  const [scrolled, setScrolled] = React.useState(false);
+  const location = useLocation();
   const t = translations[lang];
 
   useEffect(() => {
@@ -74,31 +62,32 @@ function ContactUs() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-        <img
-          src={logo}
-          alt="Manunggal"
-          className="nav-logo"
-          onClick={() => navigate("/")}
-        />
-        <ul>
-          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
-          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
-          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
-          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
+        
+        <div className="nav-brand" onClick={() => navigate("/")}> 
+                  <img
+                    src={logo}
+                    alt="Manunggal"
+                    className="nav-logo"
+                     onClick={() => navigate("/")}
+                  />
+                  <div className="nav-brand-text">
+                    <h2>Manunggal Prima Kemasindo</h2>
+                  </div>
+                </div>
+         <ul>
+          <li className={location.pathname.startsWith('/produk') ? 'active-link' : ''} onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li className={location.pathname.startsWith('/about') ? 'active-link' : ''} onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li className={location.pathname.startsWith('/service') ? 'active-link' : ''} onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li className={location.pathname.startsWith('/contact') ? 'active-link' : ''} onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
 
       {/* HERO */}
       <section className="contact-hero">
         <div className="hero-text">
-          <span className="small-title">Contact Us</span>
-          <h2>Konsultasikan Kebutuhan Kemasan Anda</h2>
-          <p>
-            Apakah Anda sedang mencari kemasan roll, pouch, vacuum bag, atau
-            kemasan plastik custom? Tim kami siap membantu diskusi material,
-            ukuran, model, hingga kebutuhan cetak agar kemasan Anda sesuai
-            dengan karakter produk dan target pasar.
-          </p>
+          <span className="small-title">{t.heroSmall}</span>
+          <h2>{t.heroTitle}</h2>
+          <p>{t.heroDesc}</p>
         </div>
 
         <div className="hero-image">
@@ -111,32 +100,23 @@ function ContactUs() {
       {/* CONTACT SECTION */}
       <section className="contact-section">
         <div className="contact-info">
-          <span className="small-title">Get In Touch</span>
-          <h2>Hubungi Tim Marketing Kami</h2>
-          <p>
-            Kami siap membantu kebutuhan sampling, penawaran harga, konsultasi
-            spesifikasi, hingga penjadwalan repeat order untuk kebutuhan kemasan
-            Anda.
-          </p>
+          <span className="small-title">{t.infoSmall}</span>
+          <h2>{t.infoTitle}</h2>
+          <p>{t.infoDesc}</p>
 
           <ul>
-            <li>
-              📞 087890876782
-            </li>
-            <li>
-              📧 sales@manunggal.co.id
-            </li>
-            <li>⏰ 08.00 – 17.00 (Senin - Jumat)</li>
-            <li>📍 Jl. Cukang Galih Kidul No 164, Curug, Tangerang</li>
+            {t.contactList.map((c, i) => (
+              <li key={i}>{c}</li>
+            ))}
           </ul>
         </div>
 
         <div className="contact-form">
-          <input type="text" placeholder="Nama perusahaan / brand" />
-          <input type="email" placeholder="E-mail aktif" />
-          <input type="tel" placeholder="Nomor WhatsApp" />
-          <textarea placeholder="Tuliskan jenis produk, ukuran kemasan, perkiraan jumlah, dan kebutuhan cetak" />
-          <button>Kirim Permintaan Konsultasi</button>
+          <input type="text" placeholder={t.form.name} />
+          <input type="email" placeholder={t.form.email} />
+          <input type="tel" placeholder={t.form.phone} />
+          <textarea placeholder={t.form.message} />
+          <button>{t.form.submit}</button>
         </div>
       </section>
 

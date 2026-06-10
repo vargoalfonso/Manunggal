@@ -1,6 +1,7 @@
 import "../styles/product.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 import allPackaging from "../assets/semuajeniskemasan.jpeg";
 import ricePackaging from "../assets/kemasan beras.jpeg";
 import maskPackaging from "../assets/kemasan masker.jpeg";
@@ -8,20 +9,7 @@ import sealerPackaging from "../assets/kemasan sealer.jpeg";
 import vacuumPackaging from "../assets/kemasan vakum.jpeg";
 import processPackaging from "../assets/proses .jpeg";
 import logo from "../assets/logo.png";
-const translations = {
-  id: {
-    produk: "Produk",
-    tentang: "Tentang MPK",
-    layanan: "Layanan Kami",
-    hubungi: "Hubungi Kami",
-  },
-  en: {
-    produk: "Products",
-    tentang: "About MPK",
-    layanan: "Our Services",
-    hubungi: "Contact Us",
-  },
-};
+import { productPageTranslations as translations } from "../i18n/translations";
 const products = [
   {
     title: "Roll Film Printing",
@@ -138,9 +126,10 @@ const footerCompanyLinks = [
 ];
 
 export default function Product() {
-  const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState("id");
+  const [scrolled, setScrolled] = React.useState(false);
+  const { lang, setLang } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
   const t = translations[lang];
 
   useEffect(() => {
@@ -176,41 +165,34 @@ export default function Product() {
 
       {/* NAVBAR */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-         <img
-                          src={logo}
-                          alt="Manunggal"
-                          className="nav-logo"
-                          onClick={() => navigate("/")}
-                        />
+         <div className="nav-brand" onClick={() => navigate("/")}> 
+                           <img
+                             src={logo}
+                             alt="Manunggal"
+                             className="nav-logo"
+                              onClick={() => navigate("/")}
+                           />
+                           <div className="nav-brand-text">
+                             <h2>Manunggal Prima Kemasindo</h2>
+                           </div>
+                         </div>
         
         <ul>
-          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
-          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
-          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
-          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
+          <li className={location.pathname.startsWith('/produk') ? 'active-link' : ''} onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li className={location.pathname.startsWith('/about') ? 'active-link' : ''} onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li className={location.pathname.startsWith('/service') ? 'active-link' : ''} onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li className={location.pathname.startsWith('/contact') ? 'active-link' : ''} onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
       <section className="product-page">
         <div className="product-hero">
-          <span className="badge">Produk Kami</span>
-          <h1>
-            Solusi Produk Kemasan untuk
-            <span> Brand, Retail, dan Industri</span>
-          </h1>
-          <p>
-            Kami menghadirkan berbagai solusi kemasan plastik yang dirancang
-            untuk melindungi isi produk, meningkatkan daya tarik visual di rak,
-            dan mendukung proses pengemasan hingga distribusi secara lebih
-            efisien.
-          </p>
+          <span className="badge">{t.badge}</span>
+          <h1>{t.heroTitle}</h1>
+          <p>{t.heroDesc}</p>
         </div>
         <div className="product-card-list">
-          <h2 className="section-title">Daftar Produk Kami</h2>
-          <p className="section-desc">
-            Setiap jenis kemasan dapat disesuaikan dari sisi ukuran, material,
-            model, hingga kebutuhan cetak agar selaras dengan karakter produk
-            dan strategi penjualan Anda.
-          </p>
+          <h2 className="section-title">{t.listTitle}</h2>
+          <p className="section-desc">{t.listDesc}</p>
 
           <div className="product-card-grid">
             {productCards.map((item, index) => (
@@ -227,10 +209,7 @@ export default function Product() {
             ))}
           </div>
         </div>
-        <h1 className="listservice">
-            Spesifikasi Produk untuk
-            <span className="service"> Kebutuhan Kemasan Modern</span>
-          </h1>
+        <h1 className="listservice">{t.specsTitle}</h1>
         <div className="product-list">
           
           {products.map((item, index) => (
@@ -251,14 +230,10 @@ export default function Product() {
         </div>
 
         <div className="product-cta">
-          <h2>Butuh Kemasan yang Disesuaikan?</h2>
-          <p>
-            Tim kami siap membantu menentukan struktur material, ukuran, model,
-            sampai kebutuhan cetak agar kemasan Anda lebih fungsional, menarik,
-            dan siap diproduksi sesuai target pasar.
-          </p>
+          <h2>{t.ctaTitle}</h2>
+          <p>{t.ctaText}</p>
           <a href="/contact" className="btn-primary">
-            Konsultasi Sekarang
+            {t.ctaButton}
           </a>
         </div>
       </section>

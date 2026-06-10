@@ -7,6 +7,9 @@
   --mpk-muted: rgba(15,23,42,0.72);
   --mpk-border: rgba(15,23,42,0.10);
 }
+.navbar.scrolled .nav-brand-text h2 {
+  color: #000;
+}
 
 html, body{ overflow-x: hidden; }
 #root{ width: 100%; }

@@ -1,21 +1,9 @@
 import "../styles/services.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 import logo from "../assets/logo.png";
-const translations = {
-  id: {
-    produk: "Produk",
-    tentang: "Tentang MPK",
-    layanan: "Layanan Kami",
-    hubungi: "Hubungi Kami",
-  },
-  en: {
-    produk: "Products",
-    tentang: "About MPK",
-    layanan: "Our Services",
-    hubungi: "Contact Us",
-  },
-};
+import { servicesPageTranslations as translations } from "../i18n/translations";
 
 const services = [
   {
@@ -66,8 +54,9 @@ const footerCompanyLinks = [
 
 export default function Services() {
     const navigate = useNavigate();
-      const [lang, setLang] = useState("id");
-      const [scrolled, setScrolled] = useState(false);
+      const { lang, setLang } = useLanguage();
+      const [scrolled, setScrolled] = React.useState(false);
+      const location = useLocation();
       const t = translations[lang];
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -102,32 +91,29 @@ export default function Services() {
 
       {/* ================= NAVBAR ================= */}
       <div className={`navbar1 ${scrolled ? "scrolled" : ""}`}>
-       <img
-                        src={logo}
-                        alt="Manunggal"
-                        className="nav-logo"
-                        onClick={() => navigate("/")}
-                      />
-      
+      <div className="nav-brand" onClick={() => navigate("/")}> 
+                        <img
+                          src={logo}
+                          alt="Manunggal"
+                          className="nav-logo"
+                           onClick={() => navigate("/")}
+                        />
+                        <div className="nav-brand-text">
+                          <h2>Manunggal Prima Kemasindo</h2>
+                        </div>
+                      </div>
         <ul>
-            <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
-          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
-          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
-          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
+            <li className={location.pathname.startsWith('/produk') ? 'active-link' : ''} onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li className={location.pathname.startsWith('/about') ? 'active-link' : ''} onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li className={location.pathname.startsWith('/service') ? 'active-link' : ''} onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li className={location.pathname.startsWith('/contact') ? 'active-link' : ''} onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
       </div>
     <section className="services-page">
       <div className="services-hero">
-        <span className="badge">Layanan Kami</span>
-        <h1>
-          Layanan Produksi untuk Mendukung
-          <span> Kebutuhan Kemasan Produk Anda</span>
-        </h1>
-        <p>
-          Kami menyediakan layanan produksi kemasan dari tahap konsultasi,
-          desain, cetak, laminasi, hingga finishing untuk membantu produk
-          tampil lebih profesional, aman, dan siap distribusi.
-        </p>
+        <span className="badge">{t.badge}</span>
+        <h1>{t.heroTitle}</h1>
+        <p>{t.heroDesc}</p>
       </div>
 
       <div className="services-grid">
@@ -140,19 +126,13 @@ export default function Services() {
       </div>
 
       <div className="services-info">
-        <h2>Mengapa Memilih Kami?</h2>
-        <p>
-          Dengan pengalaman produksi, kontrol kualitas, dan fleksibilitas
-          pengerjaan, kami siap menjadi mitra jangka panjang untuk kebutuhan
-          kemasan plastik brand Anda dari tahap pengembangan hingga repeat
-          order rutin.
-        </p>
+        <h2>{t.whyTitle}</h2>
+        <p>{t.whyText}</p>
 
         <ul>
-          <li>Material, ukuran, dan model kemasan dapat disesuaikan</li>
-          <li>Proses produksi rapi dengan alur kerja yang lebih terjadwal</li>
-          <li>Siap melayani kebutuhan UMKM, retail, hingga industri</li>
-          <li>Fokus pada kualitas cetak, kekuatan seal, dan konsistensi hasil</li>
+          {t.whyList.map((li, i) => (
+            <li key={i}>{li}</li>
+          ))}
         </ul>
       </div>
     </section>

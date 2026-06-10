@@ -145,6 +145,9 @@ body {
 .navbar1 li:hover::after {
   width: 100%;
 }
+.navbar.scrolled .nav-brand-text h2 {
+  color: #000;
+}
 
 /* logo images */
 .nav-logo {

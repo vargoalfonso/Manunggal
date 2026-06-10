@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../i18n/useLanguage";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/home.css";
+import { homeTranslations as translations } from "../i18n/translations";
 import slider1 from "../assets/slider.jpeg";
 import slider2 from "../assets/slider2.jpeg";
 import slider3 from "../assets/slider3.jpeg";
@@ -12,85 +14,21 @@ import Product5 from "../assets/kemasan vakum.jpeg";
 import Product6 from "../assets/proses .jpeg";
 import logo from "../assets/logo.png";
 
-/* ===================== TRANSLATIONS ===================== */
-const translations = {
-  id: {
-    produk: "Produk",
-    tentang: "Tentang MPK",
-    layanan: "Layanan Kami",
-    hubungi: "Hubungi Kami",
-    tag: "Flexible Packaging",
-    heroTitle: "Solusi Kemasan Plastik untuk Brand Anda",
-    heroDesc:
-      "Kami memproduksi kemasan roll, pouch, karung, dan vacuum bag untuk kebutuhan pangan, retail, serta industri dengan kualitas cetak yang konsisten.",
-    esgTitle: "Keunggulan MPK",
-    esgDesc:
-      "Material, cetak, dan proses produksi kami dirancang agar kemasan tampil kuat, aman, dan siap bersaing di pasar.",
-  },
-  en: {
-    produk: "Products",
-    tentang: "About MPK",
-    layanan: "Our Services",
-    hubungi: "Contact Us",
-    tag: "Flexible Packaging",
-    heroTitle: "Plastic Packaging Solutions for Your Brand",
-    heroDesc:
-      "We produce roll stock, pouches, sacks, and vacuum bags for food, retail, and industrial needs with reliable print quality.",
-    esgTitle: "MPK Advantages",
-    esgDesc:
-      "Our materials, printing, and production process help your packaging stay strong, safe, and market-ready.",
-  },
-};
+/* translations are centralized in src/i18n/translations.js */
 const images = [slider1, slider2, slider3];
 const cards = [
-  {
-    img: Product1,
-    title: "Semua Jenis Kemasan",
-    text: "Pilihan roll, pouch, vacuum, dan karung untuk kebutuhan pangan, retail, dan industri.",
-  },
-  {
-    img: Product2,
-    title: "Kemasan Beras",
-    text: "Kemasan tangguh untuk beras dan bahan pokok dengan area branding yang jelas.",
-  },
-  {
-    img: Product3,
-    title: "Kemasan Masker",
-    text: "Kemasan retail yang rapi dan informatif untuk produk kesehatan dan kebutuhan harian.",
-  },
-  {
-    img: Product4,
-    title: "Kemasan Sealer",
-    text: "Solusi kemasan praktis yang mudah disegel untuk menjaga isi tetap aman dan rapi.",
-  },
-  {
-    img: Product5,
-    title: "Kemasan Vakum",
-    text: "Kemasan food grade untuk membantu menjaga kesegaran produk lebih lama.",
-  },
-  {
-    img: Product6,
-    title: "Proses Produksi",
-    text: "Alur cetak, laminasi, dan finishing yang terkontrol untuk hasil lebih konsisten.",
-  },
+  { img: Product1 },
+  { img: Product2 },
+  { img: Product3 },
+  { img: Product4 },
+  { img: Product5 },
+  { img: Product6 },
 ];
 // Menjadi ini
 const esgItems = [
-  {
-    title: "Material sesuai kebutuhan produk",
-    desc: "Tersedia opsi roll, pouch, vacuum, dan karung dengan struktur material yang disesuaikan dengan isi, berat, dan kebutuhan distribusi.",
-    img: Product1,
-  },
-  {
-    title: "Kualitas cetak lebih konsisten",
-    desc: "Tampilan kemasan dibuat lebih rapi, informatif, dan mendukung identitas brand agar menonjol di pasar.",
-    img: Product4,
-  },
-  {
-    title: "Produksi rapi dan siap kirim",
-    desc: "Alur produksi yang efisien membantu menjaga repeat order, ketepatan spesifikasi, dan kesiapan suplai kemasan Anda.",
-    img: Product6,
-  },
+  { img: Product1 },
+  { img: Product4 },
+  { img: Product6 },
 ];
 
 const footerProductLinks = [
@@ -110,8 +48,9 @@ const footerCompanyLinks = [
 function Home() {
   const navigate = useNavigate();
   /* language */
-  const [lang, setLang] = useState("id");
+  const { lang, setLang } = useLanguage();
   const t = translations[lang];
+  const location = useLocation();
   /* slider & ESG */
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -182,21 +121,25 @@ function Home() {
       </div>
 
       {/* ================= NAVBAR ================= */}
-      <div className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className={`navbar ${scrolled ? "scrolled" : ""} home`}>
         
-        <img 
-                 src={logo}
-                 alt="Manunggal"
-                 className="nav-logo"
-                 onClick={() => navigate("/")}
-               />
+        <div className="nav-brand" onClick={() => navigate("/")}> 
+          <img
+            src={logo}
+            alt="Manunggal"
+            className="nav-logo"
+          />
+          <div className="nav-brand-text">
+            <h2>Manunggal Prima Kemasindo</h2>
+          </div>
+        </div>
 
         {/* DESKTOP MENU */}
         <ul className="nav-links">
-          <li onClick={() => handleNavigate("/produk")}>{t.produk}</li>
-          <li onClick={() => handleNavigate("/about")}>{t.tentang}</li>
-          <li onClick={() => handleNavigate("/service")}>{t.layanan}</li>
-          <li onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
+          <li className={location.pathname.startsWith('/produk') ? 'active-link' : ''} onClick={() => handleNavigate("/produk")}>{t.produk}</li>
+          <li className={location.pathname.startsWith('/about') ? 'active-link' : ''} onClick={() => handleNavigate("/about")}>{t.tentang}</li>
+          <li className={location.pathname.startsWith('/service') ? 'active-link' : ''} onClick={() => handleNavigate("/service")}>{t.layanan}</li>
+          <li className={location.pathname.startsWith('/contact') ? 'active-link' : ''} onClick={() => handleNavigate("/contact")}>{t.hubungi}</li>
         </ul>
 
         {/* BURGER */}
@@ -267,46 +210,47 @@ function Home() {
       <div className="experience">
         <div className="aset">
           <h1>120+</h1>
-          <p>VARIAN KEMASAN</p>
+          <p>{t.experience.variants}</p>
         </div>
         <div className="aset">
           <h1>50+</h1>
-          <p>MITRA BRAND</p>
+          <p>{t.experience.partners}</p>
         </div>
         <div className="aset">
           <h1>98%</h1>
-          <p>REPEAT ORDER</p>
+          <p>{t.experience.repeat}</p>
         </div>
         <div className="aset">
           <h1>15+</h1>
-          <p>TAHUN PENGALAMAN</p>
+          <p>{t.experience.years}</p>
         </div>
       </div>
       {/* ================= PRODUCT ================= */}
       <div className="product-card">
         <h1 className="prod">{t.produk}</h1>
-        <h1 className="captionprod">
-          Kemasan Fleksibel untuk Berbagai <br /> Kebutuhan Produk Anda
-        </h1>
+        <h1 className="captionprod">{t.productCaption}</h1>
         <div className="prod-card">
-          {cards.map((card, i) => (
-            <div className="card" key={i} onClick={() => handleNavigate("/produk")}>
-              <img src={card.img} className="card-img" alt="" />
-              <div className="card-body">
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-                <p
-                  className="learnmore"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    handleNavigate("/produk");
-                  }}
-                >
-                  Pelajari solusi kemasannya ›
-                </p>
+          {cards.map((card, i) => {
+            const cardText = t.cards && t.cards[i] ? t.cards[i] : { title: '', text: '' };
+            return (
+              <div className="card" key={i} onClick={() => handleNavigate("/produk")}>
+                <img src={card.img} className="card-img" alt="" />
+                <div className="card-body">
+                  <h3>{cardText.title}</h3>
+                  <p>{cardText.text}</p>
+                  <p
+                    className="learnmore"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleNavigate("/produk");
+                    }}
+                  >
+                    {t.learnMore}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
       {/* ================= ESG ================= */}
@@ -321,17 +265,20 @@ function Home() {
             className="indicator"
             style={{ top: indicatorTop + 0 + "px" }}
           />
-          {esgItems.map((item, i) => (
-            <div
-              key={i}
-              ref={(el) => (itemRefs.current[i] = el)}
-              className={`esg-item ${current === i ? "active" : ""}`}
-              onMouseEnter={() => changeESG(i)}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-            </div>
-          ))}
+          {esgItems.map((item, i) => {
+            const itemText = t.esgItems && t.esgItems[i] ? t.esgItems[i] : { title: '', desc: '' };
+            return (
+              <div
+                key={i}
+                ref={(el) => (itemRefs.current[i] = el)}
+                className={`esg-item ${current === i ? "active" : ""}`}
+                onMouseEnter={() => changeESG(i)}
+              >
+                <h3>{itemText.title}</h3>
+                <p>{itemText.desc}</p>
+              </div>
+            );
+          })}
         </div>
         <div className="esg-image-wrapper">
           <img
@@ -341,7 +288,7 @@ function Home() {
           />
           <div className={`esg-overlay ${!fadeImg ? "show" : ""}`}>
             <span className="overlay-tag">MANUNGGAL PACKAGING</span>
-            <h2>{esgItems[current].title}</h2>
+            <h2>{t.esgItems && t.esgItems[current] ? t.esgItems[current].title : ''}</h2>
           </div>
         </div>
       </div>
@@ -349,7 +296,7 @@ function Home() {
       <footer className="footer-dark">
         <div className="footer-container">
           <div className="footer-brand">
-            <h2>Manunggal</h2>
+            <h2>Manunggal Prima Kemasindo</h2>
             <p>Flexible Packaging & Plastic Solutions</p>
 
             <iframe

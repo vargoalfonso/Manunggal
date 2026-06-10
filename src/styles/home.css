@@ -64,7 +64,7 @@ p {
 
 .navbar {
   position: fixed;
-  top: 0;
+  top: 10;
   left: 0;
   width: 100%;
   padding: 25px 40px;
@@ -97,6 +97,52 @@ p {
   color: white;
 }
 
+/* brand (logo + company name) */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  /* margin-top: 26px; sedikit jarak dari atas */
+}
+
+.nav-logo {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+
+.nav-brand-text h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #000; /* default black for non-home pages */
+
+/* active nav link styling */
+.active-link{
+  color: #0066cc;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #0066cc;
+}
+  line-height: 1;
+  margin-top: 6px; /* sedikit turun dari logo */
+}
+
+/* on home page (before scroll) keep brand text white */
+.navbar.home .nav-brand-text h2 {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .nav-brand-text h2 { display: none; }
+}
+
+/* when navbar becomes scrolled (solid background) make brand text dark */
+.navbar.scrolled .nav-brand-text h2 {
+  color: #000;
+}
+
 .navbar ul {
     font-weight: bold;
   display: flex;
@@ -125,6 +171,24 @@ p {
 
 .navbar li:hover::after {
   width: 100%;
+}
+
+/* Ensure active link styles override defaults */
+.navbar li.active-link {
+  color: #0066cc;
+}
+.navbar li.active-link::after {
+  width: 100%;
+  background: #0066cc;
+}
+
+/* support navbar1 used on other pages */
+.navbar1 li.active-link {
+  color: #0066cc;
+}
+.navbar1 li.active-link::after {
+  width: 100%;
+  background: #0066cc;
 }
 
 /* ================= BURGER MENU ================= */

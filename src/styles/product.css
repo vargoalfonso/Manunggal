@@ -13,7 +13,12 @@
 /* =========================
    PRODUCT PAGE
 ========================= */
-
+.navbar.scrolled .nav-brand-text h2 {
+  color: #000;
+}
+.nav-brand-text h2{
+  color: black;
+}
 .product-page {
   position: relative;
   overflow: hidden;

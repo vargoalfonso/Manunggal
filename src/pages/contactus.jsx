@@ -1,6 +1,6 @@
 import "../styles/contact.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "../i18n/useLanguage";
 import contactImage from "../assets/maskotcall.png";
 import logo from "../assets/logo.png";
@@ -105,18 +105,25 @@ function ContactUs() {
           <p>{t.infoDesc}</p>
 
           <ul>
-            {t.contactList.map((c, i) => (
-              <li key={i}>{c}</li>
-            ))}
+            <li>
+              📞 WhatsApp Business: 
+              <a href="https://wa.me/6285218007006" target="_blank" rel="noopener noreferrer">0852-1800-7006</a>
+            </li>
+            <li>📧 <a href="mailto:sales@manunggal.co.id">sales@manunggal.co.id</a></li>
+            <li>⏰ Senin – Sabtu | 08.00 – 17.00</li>
+            <li>
+              <button
+                className="btn-map"
+                onClick={() => window.open("https://maps.app.goo.gl/pCB5TXHxWZFofuqcA?g_st=aw", "_blank")}
+              >
+                Lihat Lokasi di Maps
+              </button>
+            </li>
           </ul>
         </div>
 
         <div className="contact-form">
-          <input type="text" placeholder={t.form.name} />
-          <input type="email" placeholder={t.form.email} />
-          <input type="tel" placeholder={t.form.phone} />
-          <textarea placeholder={t.form.message} />
-          <button>{t.form.submit}</button>
+          <ContactForm />
         </div>
       </section>
 
@@ -129,7 +136,7 @@ function ContactUs() {
 
             <iframe
               title="maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.09134404035!2d106.51413157487074!3d-6.250644161249784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4206d3228bb2cf%3A0x8acae4dab232625e!2sBojong%2C%20Cikupa%2C%20Tangerang%20Regency%2C%20Banten%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+             src="https://www.google.com/maps?q=PT.+Manunggal+Prima+Kemasindo,+Jl.+Cukang+Galih+Kidul+No.164,+Cukanggalih,+Kec.+Curug,+Kabupaten+Tangerang,+Banten+15810&output=embed"
               width="100%"
               height="180"
               style={{ border: 0, borderRadius: "10px", marginTop: "10px" }}
@@ -178,3 +185,58 @@ function ContactUs() {
 }
 
 export default ContactUs;
+
+function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+
+  const WA_NUMBER = "6285218007006"; // 085218007006
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const parts = [
+      `Nama: ${name}`,
+      `E-mail: ${email}`,
+      `No WA: ${phone}`,
+      `Keluhan / Kebutuhan: ${message}`,
+    ];
+    const text = encodeURIComponent(parts.join("\n"));
+    const url = `https://wa.me/${WA_NUMBER}?text=${text}`;
+    window.open(url, "_blank");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="contact-form-inner">
+      <input
+        type="text"
+        placeholder={"Nama perusahaan / brand"}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder={"E-mail aktif"}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="tel"
+        placeholder={"Nomor WhatsApp"}
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        required
+      />
+      <textarea
+        placeholder={"Tuliskan jenis produk, ukuran kemasan, perkiraan jumlah, dan kebutuhan cetak"}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        required
+      />
+      <button type="submit">Kirim Permintaan Konsultasi</button>
+    </form>
+  );
+}
